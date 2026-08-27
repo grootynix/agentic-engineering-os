@@ -29,7 +29,7 @@ Documentation = "https://github.com/grootynix/agentic-engineering-os/tree/main/d
 [project.optional-dependencies]
 dev = [
   "pytest>=8.0",
-  "ruff>=0.6",
+  "ruff>=0.16.4",
 ]
 binary = [
   "pyinstaller>=6.0",
