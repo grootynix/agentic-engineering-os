@@ -89,7 +89,7 @@ Canonical graph: `intent → spec → plan → implement → verify → review �
 
 `plan.md` required sections: objective, existing architecture, files to change, files not to change, sequence, risks, security, test strategy, docs, rollback, definition of done.
 
-Walker (M2+): nodes, edges, required artifacts, skip/fail, plan-drift (file set / forbidden paths) as software.
+`agentic-sdlc graph` walks the catalog DAG against files on disk (complete / ready / blocked). It is not an LLM. Plan-drift (file set vs `files not to change`) is still later.
 
 ## 8. Harness and security layering
 
@@ -146,7 +146,7 @@ A cloned app repo after `init --profile secure` (or `regulated` where required):
 | ID | Name | Shipped when |
 | --- | --- | --- |
 | **M1** | Bootstrap | CLI, init, detect, catalog stubs, doctor, tests, docs. **Shipped in 0.1.0.** |
-| **M2** | Guidance graph | **In progress:** glob-scoped rules (including release/branching) and cut-release skill. Remaining: more skills, specialized agents, graph walker. |
+| **M2** | Guidance graph | **On `dev`:** glob rules, cut-release, guidance pack (review skills + specialized agents), `agentic-sdlc graph` walker. |
 | **M3** | Harness | Hooks, pre-commit, verify, secret/SAST/SCA. |
 | **M4** | Profiles and update | Full secure/regulated packs, `update`, mandatory-control doctor. |
 | **M5** | Evals | Agent evals, token instrumentation, maturity scoring. |

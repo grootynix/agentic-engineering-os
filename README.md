@@ -47,10 +47,13 @@ Typical files:
 - `.agentic/manifest.yaml` — framework version, profile, stack, file hashes
 - `.agentic/INDEX.md` — pointer map so agents do not re-explore the repo
 - `.agentic/config.yaml` — yours (not overwritten on later updates)
-- Cursor rules under `.cursor/rules/` (one short always-on pointer plus glob-scoped testing, engineering, docs, Python, TypeScript)
-- Claude skill under `.claude/`
+- Cursor rules under `.cursor/rules/` (one short always-on pointer plus glob-scoped testing, engineering, docs, Python, TypeScript, release)
+- Skills under `.cursor/skills/` and `.claude/skills/` (using-agentic-sdlc, cut-release, threat-model, reviews)
+- Specialized agent briefs under `.cursor/agents/` and `.claude/agents/`
 
-Profiles are YAML, not hardcoded CLI flags: `standard`, `secure`, `regulated`. Only the **core** pack is populated in Milestone 1. `secure` and `regulated` exist so the composition model is real; they do not yet add scanners or attestations.
+`agentic-sdlc graph` walks `catalog/graphs/sdlc.yaml` against `sdlc/*.md` and prints the next ready node plus Actionables. It does not call a model.
+
+Profiles are YAML, not hardcoded CLI flags: `standard`, `secure`, `regulated`. `standard` installs **core** + **guidance**. `secure` and `regulated` inherit that and still do not add scanners or attestations.
 
 ---
 
@@ -97,11 +100,12 @@ uv run agentic-sdlc init                          # cwd, profile standard when n
 uv run agentic-sdlc init --path ../my-app --profile standard
 uv run agentic-sdlc init --json --force
 uv run agentic-sdlc doctor --path ../my-app --json
+uv run agentic-sdlc graph --path ../my-app
 ```
 
 Exit codes: `0` success, `1` init/doctor failure, `2` usage or not implemented.
 
-`verify`, `update`, and `hook` are stubs in Milestone 1 (exit `2`).
+`verify`, `update`, and `hook` are still stubs (exit `2`).
 
 ---
 
@@ -137,7 +141,7 @@ The engine does not speak Cursor or Claude. Adapters project the same catalog in
 ## Roadmap
 
 1. **Milestone 1 (this repo):** CLI, `init`, manifest, stack detection, templates, `doctor`
-2. **Rules, skills, specialized agents** as graph nodes (verifier, security-reviewer, architecture-reviewer)
+2. **Rules, skills, specialized agents, graph walker** (`agentic-sdlc graph`) — on `dev`
 3. **Harness:** hooks, pre-commit, secret/SAST/SCA, `agentic-sdlc verify`
 4. **Profiles in full, `update`, mandatory-control validation**
 5. **Evals, token metrics, maturity scoring**

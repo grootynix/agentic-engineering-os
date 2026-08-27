@@ -1,4 +1,5 @@
 name: standard
 packs:
   - core
+  - guidance
 controls: {}

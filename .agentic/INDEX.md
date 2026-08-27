@@ -4,7 +4,7 @@
 - Profile: standard
 - Language: python
 
-Commands: `agentic-sdlc doctor` (follow Actionables), `agentic-sdlc init`.
+Commands: `agentic-sdlc doctor`, `agentic-sdlc graph` (SDLC artifacts in `sdlc/`).
 
 Release: see `.cursor/skills/cut-release/SKILL.md` and `.agentic/templates/` (Dockerfile, aeos-release.yml). Copy templates into the repo when you ship containers.
 

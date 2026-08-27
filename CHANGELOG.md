@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PATH install (`scripts/install.sh` / `uv tool install`) and CI one-file binaries (macOS/Linux) with catalog bundled.
 - This repository is dogfooded via `agentic-sdlc init`.
 - Glob-scoped catalog rules: testing, engineering, documentation, Python, TypeScript, **release/branching**.
-- `cut-release` skill plus `.agentic/templates` for Dockerfile, checksummed GitHub Releases, GHCR, and cosign.
+- Guidance pack: threat-model, architecture-review, secure-api, dependency-review, privacy-review skills; verifier / security-reviewer / architecture-reviewer agents.
+- `agentic-sdlc graph` walks `catalog/graphs/sdlc.yaml` against `sdlc/*.md` artifacts and prints Actionables.
 - Contribution files, CI, issue/PR templates, and `dev` / `release` branch model.
 - North-star product spec (`docs/spec.md`).
 

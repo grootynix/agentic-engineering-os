@@ -48,6 +48,8 @@ def load_pack(pack_id: str) -> Pack:
 
 def load_graph(name: str = "sdlc") -> Graph:
     path = catalog_root() / "graphs" / f"{name}.yaml"
+    if not path.is_file():
+        raise CatalogError(f"unknown graph: {name}", code="GRAPH_MISSING")
     return Graph.model_validate(load_yaml(path))
 
 

@@ -26,6 +26,14 @@ def test_core_pack_load() -> None:
     Pack.model_validate(pack.model_dump(by_alias=True))
 
 
+def test_guidance_pack_load() -> None:
+    pack = load_pack("guidance")
+    dests = {f.dest for f in pack.files}
+    assert ".cursor/skills/threat-model/SKILL.md" in dests
+    assert ".claude/agents/security-reviewer.md" in dests
+    Pack.model_validate(pack.model_dump(by_alias=True))
+
+
 def test_graph_load_and_validate() -> None:
     graph = load_graph("sdlc")
     ids = [n.id for n in graph.nodes]
@@ -39,6 +47,7 @@ def test_graph_load_and_validate() -> None:
         "pr",
     ]
     assert len(graph.edges) == 6
+    assert graph.nodes[2].artifact == "sdlc/plan.md"
     Graph.model_validate(graph.model_dump(by_alias=True))
 
 

@@ -40,10 +40,13 @@ def test_init_tmp_path(tmp_path: Path) -> None:
     assert (tmp_path / ".cursor" / "rules" / "engineering.mdc").is_file()
     assert (tmp_path / ".cursor" / "rules" / "documentation.mdc").is_file()
     assert (tmp_path / ".cursor" / "rules" / "python.mdc").is_file()
+    assert (tmp_path / ".cursor" / "rules" / "typescript.mdc").is_file()
     assert (tmp_path / ".cursor" / "rules" / "release.mdc").is_file()
     assert (tmp_path / ".cursor" / "skills" / "cut-release" / "SKILL.md").is_file()
     assert (tmp_path / ".agentic" / "templates" / "Dockerfile").is_file()
-    assert (tmp_path / ".agentic" / "templates" / "aeos-release.yml").is_file()
+    assert (tmp_path / ".cursor" / "skills" / "threat-model" / "SKILL.md").is_file()
+    assert (tmp_path / ".cursor" / "agents" / "verifier.md").is_file()
+    assert (tmp_path / ".claude" / "agents" / "architecture-reviewer.md").is_file()
     mdc = (tmp_path / ".cursor" / "rules" / "agentic-os.mdc").read_text(encoding="utf-8")
     assert "alwaysApply: true" in mdc
 
