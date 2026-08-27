@@ -1,0 +1,11 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Profile
+type: object
+required: [name]
+properties:
+  name: { type: string }
+  extends: { type: [string, "null"] }
+  packs:
+    type: array
+    items: { type: string }
+  controls: { type: object }

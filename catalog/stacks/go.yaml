@@ -1,0 +1,7 @@
+id: go
+language: go
+priority: 40
+files:
+  - go.mod
+globs: []
+package_json_deps: []

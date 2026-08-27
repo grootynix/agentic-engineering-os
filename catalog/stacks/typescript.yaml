@@ -1,0 +1,13 @@
+id: typescript
+language: typescript
+priority: 50
+files:
+  - package.json
+  - package-lock.json
+  - yarn.lock
+  - pnpm-lock.yaml
+globs: []
+package_json_deps:
+  - react
+  - vitest
+  - jest

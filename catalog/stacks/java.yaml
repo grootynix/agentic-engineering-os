@@ -1,0 +1,9 @@
+id: java
+language: java
+priority: 30
+files:
+  - pom.xml
+  - build.gradle
+  - build.gradle.kts
+globs: []
+package_json_deps: []

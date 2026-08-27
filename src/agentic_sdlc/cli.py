@@ -1,0 +1,309 @@
+"""Typer CLI: init, doctor, and M1 stubs."""
+
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+from typing import Annotated
+
+import typer
+from pydantic import BaseModel
+
+from agentic_sdlc import __version__
+from agentic_sdlc.adapters import ADAPTERS
+from agentic_sdlc.core.detect import detect_stack
+from agentic_sdlc.core.doctor import run_doctor
+from agentic_sdlc.core.manifest import load_manifest, now_utc, write_manifest
+from agentic_sdlc.core.models import (
+    DesiredState,
+    FrameworkInfo,
+    InitReport,
+    Manifest,
+    ManifestFile,
+    OverallStatus,
+)
+from agentic_sdlc.core.ownership import content_sha256, file_sha256, should_write
+from agentic_sdlc.core.resolve import load_graph, resolve_desired_state
+from agentic_sdlc.errors import (
+    AdapterConflictError,
+    AgenticError,
+    NotGitRepoError,
+    NotImplementedFeature,
+    UsageError,
+)
+
+app = typer.Typer(
+    name="agentic-sdlc",
+    help="Agentic Engineering OS — catalog-driven agent harness bootstrap.",
+    no_args_is_help=True,
+    pretty_exceptions_enable=False,
+    add_completion=False,
+)
+
+
+def _version_callback(value: bool) -> None:
+    if value:
+        typer.echo(__version__)
+        raise typer.Exit(0)
+
+
+@app.callback()
+def _root(
+    version: Annotated[
+        bool,
+        typer.Option("--version", callback=_version_callback, is_eager=True, help="Print version"),
+    ] = False,
+) -> None:
+    return
+
+
+def _dump(model: BaseModel) -> str:
+    return json.dumps(model.model_dump(mode="json", by_alias=True), indent=2)
+
+
+def _print_error(exc: AgenticError, *, as_json: bool) -> None:
+    if as_json:
+        typer.echo(
+            json.dumps({"ok": False, "error": str(exc), "code": exc.code}, indent=2)
+        )
+    else:
+        typer.echo(f"error: {exc}", err=True)
+
+
+def _require_git(root: Path, force: bool) -> None:
+    if force:
+        return
+    if not (root / ".git").exists():
+        raise NotGitRepoError(
+            f"{root} is not a git repository (missing .git). Re-run with --force to override."
+        )
+
+
+def _default_profile(explicit: str | None) -> str:
+    if explicit:
+        return explicit
+    return "standard"
+
+
+def _project(
+    root: Path,
+    desired: DesiredState,
+    *,
+    force: bool,
+) -> tuple[list[str], list[str]]:
+    dests: dict[str, str] = {}
+    for item in desired.files:
+        if item.dest in dests and dests[item.dest] != item.adapter:
+            raise AdapterConflictError(
+                f"two adapters claim dest {item.dest}: {dests[item.dest]} and {item.adapter}"
+            )
+        if item.dest in dests:
+            raise AdapterConflictError(f"duplicate dest {item.dest}")
+        dests[item.dest] = item.adapter
+        adapter = ADAPTERS.get(item.adapter)
+        if adapter is None:
+            raise AdapterConflictError(f"unknown adapter: {item.adapter}")
+        if not adapter.accepts(item.dest):
+            raise AdapterConflictError(
+                f"adapter {item.adapter} does not accept dest {item.dest}"
+            )
+
+    prev = load_manifest(root)
+    written: list[str] = []
+    skipped: list[str] = []
+    for item in desired.files:
+        write, reason = should_write(item, root, manifest=prev, force=force)
+        adapter = ADAPTERS[item.adapter]
+        if write:
+            adapter.write(root, item)
+            written.append(item.dest)
+        else:
+            skipped.append(item.dest)
+            _ = reason
+    return written, skipped
+
+
+def _build_manifest(root: Path, desired: DesiredState) -> Manifest:
+    files: list[ManifestFile] = []
+    for item in desired.files:
+        path = root / item.dest
+        digest = file_sha256(path) if path.is_file() else content_sha256(item.content)
+        files.append(
+            ManifestFile(
+                path=item.dest,
+                classification=item.classification,
+                sha256=digest,
+                source=item.source,
+            )
+        )
+    return Manifest(
+        framework=FrameworkInfo(name="agentic-sdlc", version=__version__),
+        profile=desired.profile,
+        stack=desired.stack,
+        files=files,
+        created_at=now_utc(),
+    )
+
+
+def _print_init_human(report: InitReport) -> None:
+    status = "ok" if report.ok else "failed"
+    typer.echo(f"init {status}")
+    typer.echo(f"  path:    {report.path}")
+    if report.profile:
+        typer.echo(f"  profile: {report.profile}")
+    if report.stack:
+        typer.echo(
+            f"  stack:   {report.stack.primary} "
+            f"(language={report.stack.language}, confidence={report.stack.confidence})"
+        )
+    if report.files_written:
+        typer.echo("  wrote:")
+        for path in report.files_written:
+            typer.echo(f"    + {path}")
+    if report.files_skipped:
+        typer.echo("  skipped:")
+        for path in report.files_skipped:
+            typer.echo(f"    ~ {path}")
+    if report.doctor:
+        typer.echo(f"  doctor:  {report.doctor.overall.value}")
+    if report.error:
+        typer.echo(f"  error:   {report.error}")
+
+
+def _print_doctor_human(report) -> None:
+    typer.echo(f"doctor {report.overall.value}")
+    typer.echo(f"  path: {report.path}")
+    if report.profile:
+        typer.echo(f"  profile: {report.profile}")
+    if report.stack:
+        typer.echo(
+            f"  stack: {report.stack.primary} (confidence={report.stack.confidence})"
+        )
+    if not report.issues:
+        typer.echo("  issues: none")
+        return
+    typer.echo("  issues:")
+    for issue in report.issues:
+        loc = f" {issue.path}" if issue.path else ""
+        typer.echo(f"    [{issue.severity.value}] {issue.code}{loc}: {issue.message}")
+
+
+@app.command()
+def init(
+    path: Annotated[
+        Path | None,
+        typer.Option("--path", help="Project root (default: cwd)"),
+    ] = None,
+    profile: Annotated[
+        str | None,
+        typer.Option("--profile", help="Catalog profile name"),
+    ] = None,
+    as_json: Annotated[bool, typer.Option("--json", help="Print JSON report")] = False,
+    force: Annotated[
+        bool,
+        typer.Option("--force", help="Skip .git check; overwrite drifted managed files"),
+    ] = False,
+) -> None:
+    """Detect stack, render catalog, project files, write manifest, doctor."""
+    root = (path or Path.cwd()).resolve()
+    try:
+        if not sys.stdin.isatty() and profile is None:
+            chosen = "standard"
+        else:
+            chosen = _default_profile(profile)
+        _require_git(root, force)
+        load_graph("sdlc")
+        stack = detect_stack(root)
+        desired = resolve_desired_state(
+            profile_name=chosen,
+            stack=stack,
+            version=__version__,
+        )
+        written, skipped = _project(root, desired, force=force)
+        write_manifest(root, _build_manifest(root, desired))
+        doctor = run_doctor(root)
+        report = InitReport(
+            ok=doctor.overall is not OverallStatus.FAIL,
+            path=str(root),
+            profile=desired.profile,
+            stack=stack,
+            files_written=written,
+            files_skipped=skipped,
+            doctor=doctor,
+        )
+    except AgenticError as exc:
+        _print_error(exc, as_json=as_json)
+        raise typer.Exit(exc.exit_code) from exc
+
+    if as_json:
+        typer.echo(_dump(report))
+    else:
+        _print_init_human(report)
+    raise typer.Exit(0 if report.ok else 1)
+
+
+@app.command()
+def doctor(
+    path: Annotated[
+        Path | None,
+        typer.Option("--path", help="Project root (default: cwd)"),
+    ] = None,
+    as_json: Annotated[bool, typer.Option("--json", help="Print JSON report")] = False,
+) -> None:
+    """Validate manifest, hashes, profile, and stack."""
+    root = (path or Path.cwd()).resolve()
+    try:
+        report = run_doctor(root)
+    except AgenticError as exc:
+        _print_error(exc, as_json=as_json)
+        raise typer.Exit(exc.exit_code) from exc
+    if as_json:
+        typer.echo(_dump(report))
+    else:
+        _print_doctor_human(report)
+    raise typer.Exit(0 if report.ok else 1)
+
+
+def _not_implemented(name: str) -> None:
+    raise NotImplementedFeature(
+        f"{name} is not implemented in milestone 1 (no hooks, verify, or update engine)."
+    )
+
+
+@app.command()
+def verify() -> None:
+    """Not implemented (M1)."""
+    try:
+        _not_implemented("verify")
+    except AgenticError as exc:
+        _print_error(exc, as_json=False)
+        raise typer.Exit(exc.exit_code) from exc
+
+
+@app.command()
+def update() -> None:
+    """Not implemented (M1)."""
+    try:
+        _not_implemented("update")
+    except AgenticError as exc:
+        _print_error(exc, as_json=False)
+        raise typer.Exit(exc.exit_code) from exc
+
+
+@app.command("hook")
+def hook() -> None:
+    """Not implemented (M1)."""
+    try:
+        _not_implemented("hook")
+    except AgenticError as exc:
+        _print_error(exc, as_json=False)
+        raise typer.Exit(exc.exit_code) from exc
+
+
+def main() -> None:
+    try:
+        app()
+    except UsageError as exc:
+        _print_error(exc, as_json=False)
+        raise SystemExit(exc.exit_code) from exc

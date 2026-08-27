@@ -1,0 +1,59 @@
+[project]
+name = "agentic-sdlc"
+version = "0.1.0"
+description = "Agentic Engineering OS — catalog-driven SDLC harness for local agent tooling."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [{ name = "Agentic Engineering OS" }]
+keywords = ["agents", "sdlc", "cursor", "claude"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "pydantic>=2.7",
+  "pyyaml>=6.0",
+  "typer>=0.12",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.6",
+]
+
+[project.scripts]
+agentic-sdlc = "agentic_sdlc.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentic_sdlc"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"catalog" = "agentic_sdlc/catalog"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/catalog",
+  "/tests",
+  "/README.md",
+  "/LICENSE",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

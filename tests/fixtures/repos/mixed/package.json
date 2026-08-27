@@ -1,0 +1,6 @@
+{
+  "name": "mixed",
+  "dependencies": {
+    "react": "^18.0.0"
+  }
+}

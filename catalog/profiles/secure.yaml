@@ -1,0 +1,7 @@
+name: secure
+extends: standard
+packs: []
+controls:
+  # placeholders for later milestones
+  secret_scanning: true
+  sast: false

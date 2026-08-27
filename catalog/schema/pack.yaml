@@ -1,0 +1,16 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Pack
+type: object
+required: [id, files]
+properties:
+  id: { type: string }
+  files:
+    type: array
+    items:
+      type: object
+      required: [source, dest, class, adapter]
+      properties:
+        source: { type: string }
+        dest: { type: string }
+        class: { enum: [managed, generated, owned] }
+        adapter: { type: string }

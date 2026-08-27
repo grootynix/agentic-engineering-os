@@ -1,0 +1,29 @@
+name: sdlc
+nodes:
+  - id: intent
+    label: Intent
+  - id: spec
+    label: Spec
+  - id: plan
+    label: Plan
+  - id: implementation
+    label: Implementation
+  - id: verification
+    label: Verification
+  - id: review
+    label: Review
+  - id: pr
+    label: Pull request
+edges:
+  - from: intent
+    to: spec
+  - from: spec
+    to: plan
+  - from: plan
+    to: implementation
+  - from: implementation
+    to: verification
+  - from: verification
+    to: review
+  - from: review
+    to: pr

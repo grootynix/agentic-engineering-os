@@ -1,0 +1,7 @@
+name: regulated
+extends: secure
+packs: []
+controls:
+  # placeholders for later milestones
+  audit_log: true
+  data_residency: unset

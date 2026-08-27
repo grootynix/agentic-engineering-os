@@ -1,0 +1,30 @@
+id: core
+files:
+  - source: templates/AGENTS.md
+    dest: AGENTS.md
+    class: managed
+    adapter: shared
+  - source: templates/CLAUDE.md
+    dest: CLAUDE.md
+    class: managed
+    adapter: claude
+  - source: templates/INDEX.md
+    dest: .agentic/INDEX.md
+    class: generated
+    adapter: shared
+  - source: templates/config.yaml
+    dest: .agentic/config.yaml
+    class: owned
+    adapter: shared
+  - source: rules/agentic-os.mdc
+    dest: .cursor/rules/agentic-os.mdc
+    class: managed
+    adapter: cursor
+  - source: skills/using-agentic-sdlc/SKILL.md
+    dest: .cursor/skills/using-agentic-sdlc/SKILL.md
+    class: managed
+    adapter: cursor
+  - source: skills/using-agentic-sdlc/SKILL.md
+    dest: .claude/skills/using-agentic-sdlc/SKILL.md
+    class: managed
+    adapter: claude

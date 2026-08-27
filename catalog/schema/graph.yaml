@@ -1,0 +1,16 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: Graph
+type: object
+required: [name, nodes]
+properties:
+  name: { type: string }
+  nodes:
+    type: array
+    items:
+      type: object
+      required: [id]
+  edges:
+    type: array
+    items:
+      type: object
+      required: [from, to]

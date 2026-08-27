@@ -1,0 +1,7 @@
+id: terraform
+language: terraform
+priority: 20
+files: []
+globs:
+  - "*.tf"
+package_json_deps: []

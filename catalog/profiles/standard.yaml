@@ -1,0 +1,4 @@
+name: standard
+packs:
+  - core
+controls: {}

@@ -1,0 +1,9 @@
+id: python
+language: python
+priority: 40
+files:
+  - pyproject.toml
+  - requirements.txt
+  - Pipfile
+globs: []
+package_json_deps: []
