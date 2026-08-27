@@ -72,3 +72,15 @@ files:
     dest: .agentic/templates/aeos-release.yml
     class: managed
     adapter: shared
+  - source: templates/hooks.json
+    dest: .cursor/hooks.json
+    class: managed
+    adapter: cursor
+  - source: templates/claude-settings.json
+    dest: .claude/settings.json
+    class: managed
+    adapter: claude
+  - source: templates/pre-commit-config.yaml
+    dest: .pre-commit-config.yaml
+    class: managed
+    adapter: shared

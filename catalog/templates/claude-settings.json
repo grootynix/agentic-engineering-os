@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PATH=\"$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:.venv/bin:$PATH\" agentic-sdlc hook PreToolUse",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PATH=\"$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:.venv/bin:$PATH\" agentic-sdlc hook PostToolUse",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

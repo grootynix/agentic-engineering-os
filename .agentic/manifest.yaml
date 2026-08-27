@@ -19,7 +19,7 @@ stack:
 files:
 - path: AGENTS.md
   class: managed
-  sha256: c6d915bde593a8a1107633262da110ce7a6a696c2d532fc019aba2d839db46cf
+  sha256: 3ba842839dfdfd93e4b6ba4adac5aa7310431a33f7c6d430d1a131c6c1a419b4
   source: templates/AGENTS.md
 - path: CLAUDE.md
   class: managed
@@ -27,7 +27,7 @@ files:
   source: templates/CLAUDE.md
 - path: .agentic/INDEX.md
   class: generated
-  sha256: 49127a181d503eef23a7c7ee6cddbaa4bd4e89c3fe5cc3f6b8671d253e378d3f
+  sha256: dbdf5d8e2ea233fc7a854c08855125d4b3de3e8cf48b35fca7b864b9bb51cb88
   source: templates/INDEX.md
 - path: .agentic/config.yaml
   class: owned
@@ -63,11 +63,11 @@ files:
   source: rules/release.mdc
 - path: .cursor/skills/using-agentic-sdlc/SKILL.md
   class: managed
-  sha256: 9d458c4ed3b78a033eddf31e30e48ee246bdb2c9a792805f41487d5f1b41a968
+  sha256: 84cfe174b0123ec62276e1a00b0a8910b36fea3da4786817ec2ca0a46494f57e
   source: skills/using-agentic-sdlc/SKILL.md
 - path: .claude/skills/using-agentic-sdlc/SKILL.md
   class: managed
-  sha256: 9d458c4ed3b78a033eddf31e30e48ee246bdb2c9a792805f41487d5f1b41a968
+  sha256: 84cfe174b0123ec62276e1a00b0a8910b36fea3da4786817ec2ca0a46494f57e
   source: skills/using-agentic-sdlc/SKILL.md
 - path: .cursor/skills/cut-release/SKILL.md
   class: managed
@@ -89,6 +89,18 @@ files:
   class: managed
   sha256: de5f6a08e6c83522eb11e6377b67d506f46f869ff28b92b89651d47e6cbe449f
   source: templates/aeos-release.yml
+- path: .cursor/hooks.json
+  class: managed
+  sha256: 19e10d0d08de30e4d9705092d2b9cb354652d2195e5138cf4f8491a5f2dcfda6
+  source: templates/hooks.json
+- path: .claude/settings.json
+  class: managed
+  sha256: bbd288be6fd395eaa12f6bace96690d31f143a0f1f579e8876226c36c91e5567
+  source: templates/claude-settings.json
+- path: .pre-commit-config.yaml
+  class: managed
+  sha256: 9d222b44f898c348ac326601ed9cab13e11480412f47b72edc17609e22eb2f48
+  source: templates/pre-commit-config.yaml
 - path: .cursor/skills/threat-model/SKILL.md
   class: managed
   sha256: 8508a5ad8585483b008c64695f2ad82a4e6cbe6e46a1b4bd4300a287c4c424ea
@@ -153,4 +165,4 @@ files:
   class: managed
   sha256: bcd1366fafa3e087e1839ce7821addd21e3d1f3399274f3f06f65efb9a7e00d4
   source: agents/architecture-reviewer.md
-created_at: '2026-08-27T13:39:03.171988Z'
+created_at: '2026-08-27T13:56:06.125275Z'

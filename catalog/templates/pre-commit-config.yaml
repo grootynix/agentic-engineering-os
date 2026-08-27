@@ -1,0 +1,9 @@
+# Calls the installed agentic-sdlc CLI (trusted). Do not replace with a repo script.
+repos:
+  - repo: local
+    hooks:
+      - id: agentic-sdlc-policy
+        name: agentic-sdlc policy
+        entry: agentic-sdlc hook precommit
+        language: system
+        pass_filenames: true

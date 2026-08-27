@@ -33,6 +33,10 @@ CLI: Python 3.11+, package `agentic_sdlc`, command `agentic-sdlc`. Catalog is YA
 - Guidance pack (review skills + specialized agents).
 - `agentic-sdlc graph` walker (artifact-based, not an LLM).
 
+### On `dev` (unreleased)
+
+- `agentic-sdlc hook` policy engine; Cursor/Claude/pre-commit bindings call the installed CLI (`catalog/policies/hooks.yaml`).
+
 ### GitHub still open
 
 - **Projects board:** needs `project` token scope (or create the board in the UI).
@@ -43,11 +47,11 @@ CLI: Python 3.11+, package `agentic_sdlc`, command `agentic-sdlc`. Catalog is YA
 
 ## What is next (priority)
 
-1. **M3:** [#14](https://github.com/grootynix/agentic-engineering-os/issues/14) hooks/pre-commit; [#18](https://github.com/grootynix/agentic-engineering-os/issues/18) `verify`; [#15](https://github.com/grootynix/agentic-engineering-os/issues/15) scanners. CLI stubs still exit `2`.
+1. **M3 remainder:** [#18](https://github.com/grootynix/agentic-engineering-os/issues/18) `verify`; [#15](https://github.com/grootynix/agentic-engineering-os/issues/15) scanners. Those CLI stubs still exit `2`.
 2. **M4:** `secure`/`regulated` packs, `update`, mandatory-control doctor.
 3. **M5:** evals, token metrics.
 
-Do not treat rules or graph Actionables as enforcement.
+Rules and graph Actionables are still guidance. `agentic-sdlc hook` / pre-commit are enforcement for the cheap checks they implement.
 
 ---
 

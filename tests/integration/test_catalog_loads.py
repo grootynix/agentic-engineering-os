@@ -3,6 +3,7 @@ from __future__ import annotations
 import yaml
 
 from agentic_sdlc.core.models import Graph, Pack, Profile, StackDef, catalog_root
+from agentic_sdlc.core.policy import HookPolicy, load_hook_policy
 from agentic_sdlc.core.resolve import list_profiles, load_graph, load_pack, load_profile
 
 
@@ -21,7 +22,8 @@ def test_core_pack_load() -> None:
     assert ".agentic/INDEX.md" in dests
     assert ".agentic/config.yaml" in dests
     assert ".cursor/rules/agentic-os.mdc" in dests
-    assert ".cursor/skills/using-agentic-sdlc/SKILL.md" in dests
+    assert ".cursor/hooks.json" in dests
+    assert ".pre-commit-config.yaml" in dests
     assert ".claude/skills/using-agentic-sdlc/SKILL.md" in dests
     Pack.model_validate(pack.model_dump(by_alias=True))
 
@@ -59,3 +61,7 @@ def test_stacks_load() -> None:
         stack = StackDef.model_validate(data)
         ids.append(stack.id)
     assert set(ids) >= {"python", "typescript", "go", "java", "terraform"}
+
+
+def test_hook_policy_loads() -> None:
+    HookPolicy.model_validate(load_hook_policy().model_dump())

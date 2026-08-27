@@ -25,6 +25,7 @@ def test_update_not_implemented() -> None:
     assert result.exit_code == 2
 
 
-def test_hook_not_implemented() -> None:
-    result = runner.invoke(app, ["hook"])
-    assert result.exit_code == 2
+def test_hook_help_exists() -> None:
+    result = runner.invoke(app, ["hook", "--help"])
+    assert result.exit_code == 0
+    assert "policy" in result.output.lower() or "stdin" in result.output.lower()

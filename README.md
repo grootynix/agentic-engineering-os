@@ -105,7 +105,7 @@ uv run agentic-sdlc graph --path ../my-app
 
 Exit codes: `0` success, `1` init/doctor failure, `2` usage or not implemented.
 
-`verify`, `update`, and `hook` are still stubs (exit `2`).
+`verify` and `update` are still stubs (exit `2`). `agentic-sdlc hook` is the policy engine (JSON on stdin).
 
 ---
 
@@ -117,7 +117,7 @@ Exit codes: `0` success, `1` init/doctor failure, `2` usage or not implemented.
 
 **Configuration is code.** Packs and profiles live in [`catalog/`](catalog/) and are schema-validated. Changing them is a reviewed change.
 
-**Do not trust the checkout.** Repo README, skills, MCP output, and local hook scripts are untrusted data. Later, security hooks should call the **installed** `agentic-sdlc` binary, not an arbitrary script in the project.
+**Do not trust the checkout.** Repo README, skills, MCP output, and local hook scripts are untrusted data. Security hooks call the **installed** `agentic-sdlc` binary (`agentic-sdlc hook …`), not an arbitrary script in the project.
 
 **North star (not all shipped):** clone in Cursor → `init` → agents default to secure, modular, maintainable work, with pre-commit, threat modeling, security review, quality gates, and production practices **where they apply**, at low token cost.
 
@@ -142,7 +142,7 @@ The engine does not speak Cursor or Claude. Adapters project the same catalog in
 
 1. **Milestone 1 (this repo):** CLI, `init`, manifest, stack detection, templates, `doctor`
 2. **Rules, skills, specialized agents, graph walker** (`agentic-sdlc graph`) — on `dev`
-3. **Harness:** hooks, pre-commit, secret/SAST/SCA, `agentic-sdlc verify`
+3. **Harness:** pre-commit + `agentic-sdlc hook` on `dev`; secret/SAST/SCA and `verify` still later
 4. **Profiles in full, `update`, mandatory-control validation**
 5. **Evals, token metrics, maturity scoring**
 

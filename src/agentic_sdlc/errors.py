@@ -28,6 +28,10 @@ class CatalogError(AgenticError):
     code = "CATALOG"
 
 
+class HookPayloadError(AgenticError):
+    code = "HOOK_PAYLOAD"
+
+
 class InitError(AgenticError):
     code = "INIT"
 
