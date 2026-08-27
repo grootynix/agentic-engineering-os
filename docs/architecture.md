@@ -144,7 +144,7 @@ Canonical content stays in `catalog/`. Cursor `.mdc` frontmatter and Claude skil
 | ManifestStore | `.agentic/manifest.yaml`. |
 | Doctor | Desired vs actual: missing, stale version, hash drift, unknown stack. |
 | Catalog | Schema-validated data. Rule/skill/policy/graph change = tested change. |
-| Harness | `agentic-sdlc hook` policy engine + projected host/pre-commit bindings. Verify loops still M3 remainder. |
+| Harness | `agentic-sdlc hook` + `agentic-sdlc verify`. SAST/SCA still later. |
 | Graph walker | Load `catalog/graphs/*.yaml`; walk artifacts on disk (`agentic-sdlc graph`). |
 | PolicyEngine (M3) | Hook events → decision + explanation. |
 | VerifyOrchestrator (M3) | Discover native checks; adaptive; missing = skip/DEGRADED. |

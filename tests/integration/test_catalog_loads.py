@@ -5,6 +5,7 @@ import yaml
 from agentic_sdlc.core.models import Graph, Pack, Profile, StackDef, catalog_root
 from agentic_sdlc.core.policy import HookPolicy, load_hook_policy
 from agentic_sdlc.core.resolve import list_profiles, load_graph, load_pack, load_profile
+from agentic_sdlc.core.verify import load_check_specs
 
 
 def test_profiles_load() -> None:
@@ -24,6 +25,7 @@ def test_core_pack_load() -> None:
     assert ".cursor/rules/agentic-os.mdc" in dests
     assert ".cursor/hooks.json" in dests
     assert ".pre-commit-config.yaml" in dests
+    assert ".agentic/templates/ci-verify.yml" in dests
     assert ".claude/skills/using-agentic-sdlc/SKILL.md" in dests
     Pack.model_validate(pack.model_dump(by_alias=True))
 
@@ -65,3 +67,8 @@ def test_stacks_load() -> None:
 
 def test_hook_policy_loads() -> None:
     HookPolicy.model_validate(load_hook_policy().model_dump())
+
+
+def test_verify_checks_load() -> None:
+    specs = load_check_specs()
+    assert {s.id for s in specs} >= {"python.ruff-lint", "python.pytest"}

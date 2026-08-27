@@ -105,7 +105,7 @@ uv run agentic-sdlc graph --path ../my-app
 
 Exit codes: `0` success, `1` init/doctor failure, `2` usage or not implemented.
 
-`verify` and `update` are still stubs (exit `2`). `agentic-sdlc hook` is the policy engine (JSON on stdin).
+`update` is still a stub (exit `2`). `agentic-sdlc verify` runs discovered checks. `agentic-sdlc hook` is the policy engine (JSON on stdin).
 
 ---
 
@@ -142,7 +142,7 @@ The engine does not speak Cursor or Claude. Adapters project the same catalog in
 
 1. **Milestone 1 (this repo):** CLI, `init`, manifest, stack detection, templates, `doctor`
 2. **Rules, skills, specialized agents, graph walker** (`agentic-sdlc graph`) — on `dev`
-3. **Harness:** pre-commit + `agentic-sdlc hook` on `dev`; secret/SAST/SCA and `verify` still later
+3. **Harness:** `agentic-sdlc hook` + `agentic-sdlc verify` on `dev`; secret/SAST/SCA still later
 4. **Profiles in full, `update`, mandatory-control validation**
 5. **Evals, token metrics, maturity scoring**
 
@@ -152,8 +152,7 @@ The engine does not speak Cursor or Claude. Adapters project the same catalog in
 
 ```bash
 uv sync --extra dev
-uv run pytest
-uv run ruff check src tests
+uv run agentic-sdlc verify
 ```
 
 This checkout is a consumer of the harness. After pull: `agentic-sdlc doctor` (or `uv run agentic-sdlc doctor`). Follow Actionables. Do not hand-edit managed files unless you intend HASH_DRIFT.

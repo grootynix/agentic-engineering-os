@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `agentic-sdlc hook <event>` policy engine (ALLOW/WARN/ASK/BLOCK). Cursor `.cursor/hooks.json`, Claude `.claude/settings.json`, and `.pre-commit-config.yaml` call the **installed** CLI, not repo scripts. Catalog: `catalog/policies/hooks.yaml`.
+- `agentic-sdlc hook <event>` policy engine (ALLOW/WARN/ASK/BLOCK). Host and pre-commit bindings call the installed CLI (`catalog/policies/hooks.yaml`).
+- `agentic-sdlc verify` discovers format/lint/types/tests from `catalog/verify/checks.yaml` and runs what exists. Missing tools skip (`DEGRADED` if nothing ran; `FAIL` only when a check ran and failed). CI uses the same command.
+
 ## [0.2.1] - 2026-08-27
 
 ### Fixed

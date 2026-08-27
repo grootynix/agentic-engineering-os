@@ -5,7 +5,7 @@ Primary language: {{language}}.
 
 Read `.agentic/manifest.yaml` and `.agentic/INDEX.md` before exploring.
 Run `agentic-sdlc graph` to see the next SDLC artifact (`sdlc/intent.md` first).
-Hooks and pre-commit call `agentic-sdlc hook` (installed CLI), not repo scripts.
+Run `agentic-sdlc verify` for format/lint/types/tests that exist (missing tools skip).
 Specialized agents: verifier, security-reviewer, architecture-reviewer.
 
 Keep this file short. Cursor rules under `.cursor/rules/` are glob-scoped.

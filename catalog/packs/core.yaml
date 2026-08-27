@@ -84,3 +84,7 @@ files:
     dest: .pre-commit-config.yaml
     class: managed
     adapter: shared
+  - source: templates/ci-verify.yml
+    dest: .agentic/templates/ci-verify.yml
+    class: managed
+    adapter: shared

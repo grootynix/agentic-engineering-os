@@ -1,0 +1,13 @@
+# Copy into .github/workflows/ or invoke from an existing job.
+# Same entry point as local: agentic-sdlc verify
+name: Verify
+on:
+  pull_request:
+  push:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify
+        run: agentic-sdlc verify
