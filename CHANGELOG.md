@@ -7,16 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-27
+
 ### Added
 
 - Doctor and init **Actionables** (`action` on each finding; human + `--json`).
 - PATH install (`scripts/install.sh` / `uv tool install`) and CI one-file binaries (macOS/Linux) with catalog bundled.
 - This repository is dogfooded via `agentic-sdlc init`.
 - Glob-scoped catalog rules: testing, engineering, documentation, Python, TypeScript, **release/branching**.
+- `cut-release` skill; Dockerfile and `.github/workflows/aeos-release.yml` (tag `v*` → wheel, SHA256SUMS, GHCR, cosign OIDC).
 - Guidance pack: threat-model, architecture-review, secure-api, dependency-review, privacy-review skills; verifier / security-reviewer / architecture-reviewer agents.
 - `agentic-sdlc graph` walks `catalog/graphs/sdlc.yaml` against `sdlc/*.md` artifacts and prints Actionables.
-- Contribution files, CI, issue/PR templates, and `dev` / `release` branch model.
-- North-star product spec (`docs/spec.md`).
+- North-star product spec (`docs/spec.md`) and OSS contribution layout on `dev`.
+
+### Fixed
+
+- Template renderer substitutes `{{framework_version}}` only, so copied GitHub Actions keep docker-metadata `{{version}}`.
 
 ## [0.1.0] - 2026-08-27
 
@@ -27,5 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cursor and Claude Code adapters; ownership-aware file projection and `.agentic/manifest.yaml`.
 - Unit and integration tests; architecture and security docs.
 
-[Unreleased]: https://github.com/grootynix/agentic-engineering-os/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/grootynix/agentic-engineering-os/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/grootynix/agentic-engineering-os/releases/tag/v0.2.0
 [0.1.0]: https://github.com/grootynix/agentic-engineering-os/releases/tag/v0.1.0

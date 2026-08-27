@@ -7,5 +7,5 @@ def render_template(text: str, *, language: str, profile: str, version: str) -> 
     return (
         text.replace("{{language}}", language)
         .replace("{{profile}}", profile)
-        .replace("{{version}}", version)
+        .replace("{{framework_version}}", version)
     )

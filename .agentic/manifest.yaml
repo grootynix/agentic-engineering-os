@@ -1,6 +1,6 @@
 framework:
   name: agentic-sdlc
-  version: 0.1.0
+  version: 0.2.0
 profile: standard
 stack:
   primary: python
@@ -19,7 +19,7 @@ stack:
 files:
 - path: AGENTS.md
   class: managed
-  sha256: a9c72ba8a273148a2e3861eabfc60a23c346b709cc1aebd9f386c2661832960e
+  sha256: ad8ad9777123808759bcc965d43ef4ef0484750a8842df805bd656b01a88a026
   source: templates/AGENTS.md
 - path: CLAUDE.md
   class: managed
@@ -27,7 +27,7 @@ files:
   source: templates/CLAUDE.md
 - path: .agentic/INDEX.md
   class: generated
-  sha256: e78b7c832b0992e792d49639f672f6570891da88e05079bcdbf73acc8d56e7b1
+  sha256: 969e3d419deecf0c7b372c9c2bf55539fb9fa4d6190250350258b48e161fceab
   source: templates/INDEX.md
 - path: .agentic/config.yaml
   class: owned
@@ -87,7 +87,7 @@ files:
   source: templates/dockerignore
 - path: .agentic/templates/aeos-release.yml
   class: managed
-  sha256: bf0ef28a2abcfa708f36d1725c845e39f13c1389ff44e6bdca4070d032d9e214
+  sha256: 9a64f00900306e16ab7286dc047dbb1b4d8bc730eb69419a1068483dfffddbcf
   source: templates/aeos-release.yml
 - path: .cursor/skills/threat-model/SKILL.md
   class: managed
@@ -153,4 +153,4 @@ files:
   class: managed
   sha256: bcd1366fafa3e087e1839ce7821addd21e3d1f3399274f3f06f65efb9a7e00d4
   source: agents/architecture-reviewer.md
-created_at: '2026-08-27T13:30:24.759560Z'
+created_at: '2026-08-27T13:36:15.891274Z'
