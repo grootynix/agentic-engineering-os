@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import sys
 from datetime import datetime
 from enum import StrEnum
 from pathlib import Path
@@ -126,6 +127,7 @@ class DoctorIssue(BaseModel):
     code: str
     severity: Severity
     message: str
+    action: str
     path: str | None = None
 
 
@@ -197,6 +199,15 @@ def catalog_root() -> Path:
         if not path.is_dir():
             raise CatalogError(f"catalog path does not exist: {path}")
         return path
+    if getattr(sys, "frozen", False):
+        meipass = Path(getattr(sys, "_MEIPASS", Path(sys.executable).parent))
+        for candidate in (
+            meipass / "catalog",
+            meipass / "agentic_sdlc" / "catalog",
+            Path(sys.executable).resolve().parent / "catalog",
+        ):
+            if candidate.is_dir():
+                return candidate
     pkg = Path(__file__).resolve().parent.parent
     for candidate in (pkg / "catalog", pkg.parent.parent / "catalog"):
         if candidate.is_dir():

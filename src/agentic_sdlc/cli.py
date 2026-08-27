@@ -167,8 +167,18 @@ def _print_init_human(report: InitReport) -> None:
             typer.echo(f"    ~ {path}")
     if report.doctor:
         typer.echo(f"  doctor:  {report.doctor.overall.value}")
+        _print_actionables(report.doctor.issues)
     if report.error:
         typer.echo(f"  error:   {report.error}")
+
+
+def _print_actionables(issues) -> None:
+    if not issues:
+        typer.echo("Actionables: none")
+        return
+    typer.echo("Actionables:")
+    for i, issue in enumerate(issues, start=1):
+        typer.echo(f"  {i}. [{issue.code}] {issue.action}")
 
 
 def _print_doctor_human(report) -> None:
@@ -182,11 +192,13 @@ def _print_doctor_human(report) -> None:
         )
     if not report.issues:
         typer.echo("  issues: none")
+        _print_actionables([])
         return
     typer.echo("  issues:")
     for issue in report.issues:
         loc = f" {issue.path}" if issue.path else ""
         typer.echo(f"    [{issue.severity.value}] {issue.code}{loc}: {issue.message}")
+    _print_actionables(report.issues)
 
 
 @app.command()

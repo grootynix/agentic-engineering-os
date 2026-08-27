@@ -1,8 +1,8 @@
 # Agentic index
 
-- Framework: agentic-sdlc {{version}}
-- Profile: {{profile}}
-- Language: {{language}}
+- Framework: agentic-sdlc 0.1.0
+- Profile: standard
+- Language: python
 
 Commands: `agentic-sdlc doctor` (follow Actionables), `agentic-sdlc init`.
 

@@ -1,0 +1,92 @@
+framework:
+  name: agentic-sdlc
+  version: 0.1.0
+profile: standard
+stack:
+  primary: python
+  language: python
+  confidence: high
+  ambiguous: false
+  markers:
+  - pyproject.toml
+  scores:
+    python: 50
+  harness:
+    cursor_dir: false
+    agents_md: false
+    claude_dir: false
+    claude_md: false
+files:
+- path: AGENTS.md
+  class: managed
+  sha256: 926aabb799ab412dcf48238ff451a004f8b228fdb4db008de6fc642ebf9e0b9e
+  source: templates/AGENTS.md
+- path: CLAUDE.md
+  class: managed
+  sha256: a6312e5f9d1834bc0d7d3f85e791f8b8f2ff927ead62e99f8212e16b9bff9177
+  source: templates/CLAUDE.md
+- path: .agentic/INDEX.md
+  class: generated
+  sha256: 7faded851783b9e4803f857a7977c3819bd075ddee69ca76aa0a2bb536e58a08
+  source: templates/INDEX.md
+- path: .agentic/config.yaml
+  class: owned
+  sha256: f9a9715615111a03213d614d9ea39449966ccf417de47d038f68e8cc8ed286de
+  source: templates/config.yaml
+- path: .cursor/rules/agentic-os.mdc
+  class: managed
+  sha256: 65838438cbcdf974dcaceb866be5c7a1e50c816d74549cae81b7c55d12734b88
+  source: rules/agentic-os.mdc
+- path: .cursor/rules/testing.mdc
+  class: managed
+  sha256: f170c5fd2768d1209dfe852585fabbb21422bb48eb4e77768a35841ac713cd25
+  source: rules/testing.mdc
+- path: .cursor/rules/engineering.mdc
+  class: managed
+  sha256: e9192088f2f7fbd62d362bfd6fb9ce896065fe106570486aa5541d87f665807c
+  source: rules/engineering.mdc
+- path: .cursor/rules/documentation.mdc
+  class: managed
+  sha256: 39e5390d2aa2c6d90e05766830b0a900f1e6aa167a365aba7c94dfa5d7e34b25
+  source: rules/documentation.mdc
+- path: .cursor/rules/python.mdc
+  class: managed
+  sha256: 6fce5cda78a3705cc96ad2993a4a1be98481d7d09237b1c61584ecc8cf094987
+  source: rules/python.mdc
+- path: .cursor/rules/typescript.mdc
+  class: managed
+  sha256: 97f16f628c16eaef08c5803fa56b601166000eb6faa3faea9a7a3df20c257dd4
+  source: rules/typescript.mdc
+- path: .cursor/rules/release.mdc
+  class: managed
+  sha256: d1cb181e4dbadc59c541a0180270bdb141d35f57841d5fb46322fbd74dcc1a41
+  source: rules/release.mdc
+- path: .cursor/skills/using-agentic-sdlc/SKILL.md
+  class: managed
+  sha256: bc81a4b02ded27358acdcfe1c730144e285c906cda3bed6e572562296ff2b424
+  source: skills/using-agentic-sdlc/SKILL.md
+- path: .claude/skills/using-agentic-sdlc/SKILL.md
+  class: managed
+  sha256: bc81a4b02ded27358acdcfe1c730144e285c906cda3bed6e572562296ff2b424
+  source: skills/using-agentic-sdlc/SKILL.md
+- path: .cursor/skills/cut-release/SKILL.md
+  class: managed
+  sha256: 4a07ea0ff238fa65f38050066e7651b82395c2638e5a661d27069ff51f1c7d85
+  source: skills/cut-release/SKILL.md
+- path: .claude/skills/cut-release/SKILL.md
+  class: managed
+  sha256: 4a07ea0ff238fa65f38050066e7651b82395c2638e5a661d27069ff51f1c7d85
+  source: skills/cut-release/SKILL.md
+- path: .agentic/templates/Dockerfile
+  class: managed
+  sha256: 7c21d8e69b0fe7f239447a0b94a504757c86d355b7dc7ffde89d7c3f21ed9221
+  source: templates/Dockerfile
+- path: .agentic/templates/dockerignore
+  class: managed
+  sha256: e0fb80d81bd08b66d107839cb08ec96b2c6660daf9cf33302a949bee29539a6c
+  source: templates/dockerignore
+- path: .agentic/templates/aeos-release.yml
+  class: managed
+  sha256: bf0ef28a2abcfa708f36d1725c845e39f13c1389ff44e6bdca4070d032d9e214
+  source: templates/aeos-release.yml
+created_at: '2026-08-27T13:10:21.803470Z'

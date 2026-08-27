@@ -1,0 +1,7 @@
+---
+description: Documentation — change public behavior with the docs
+globs: "**/*.{md,mdc}"
+alwaysApply: false
+---
+
+If public CLI, API, or harness behavior changes, update the matching README, changelog, or spec in the same change. Do not paste large policy manuals into always-on instruction files. Keep `AGENTS.md` and `CLAUDE.md` short; point at `.agentic/` and catalog docs instead.
