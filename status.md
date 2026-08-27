@@ -3,9 +3,10 @@
 Handoff for the next agent or human. Product contract: [docs/spec.md](docs/spec.md). Architecture: [docs/architecture.md](docs/architecture.md).
 
 **Repo:** https://github.com/grootynix/agentic-engineering-os  
-**Default branch:** `main` (still the v0.1.0-era snapshot until you fast-forward it).  
+**Default branch:** `main`  
 **Contribute on:** `dev`.  
-**Cut from:** `release`.
+**Cut from:** `release`.  
+**Current release:** `v0.2.0`
 
 Work from `dev`. PRs target **`dev`**.
 
@@ -21,20 +22,16 @@ CLI: Python 3.11+, package `agentic_sdlc`, command `agentic-sdlc`. Catalog is YA
 
 ## Done
 
-### On `main` / tag `v0.1.0`
+### `v0.1.0`
 
 - Milestone 1: `init`, `doctor`, stack detect, core pack stubs, adapters, tests.
-- OSS: CONTRIBUTING, CoC, SECURITY, CI, issue/PR templates, Dependabot, CODEOWNERS, MIT, topics, milestones M1–M5.
-- Spec and ADRs. Tracking [#8](https://github.com/grootynix/agentic-engineering-os/issues/8). M1 [#9](https://github.com/grootynix/agentic-engineering-os/issues/9) closed.
+- Tracking [#8](https://github.com/grootynix/agentic-engineering-os/issues/8). M1 [#9](https://github.com/grootynix/agentic-engineering-os/issues/9) closed.
 
-### On `dev` (PR #19)
+### `v0.2.0`
 
-- Doctor/init **Actionables**. Repo dogfooded. PATH + CI binaries. Glob rules, cut-release, GHCR/cosign templates.
-
-### M2 remainder (this slice)
-
-- Guidance pack on `standard` (inherited by `secure` / `regulated`): threat-model, architecture-review, secure-api, dependency-review, privacy-review skills; verifier, security-reviewer, architecture-reviewer agents.
-- `agentic-sdlc graph` walks `catalog/graphs/sdlc.yaml` against `sdlc/*.md` (complete / ready / blocked + Actionables). Not an LLM. Plan-drift still later.
+- Doctor/init Actionables; dogfood; PATH + CI binaries; glob rules; cut-release + GHCR/cosign workflow.
+- Guidance pack (review skills + specialized agents).
+- `agentic-sdlc graph` walker (artifact-based, not an LLM).
 
 ### GitHub still open
 
@@ -46,11 +43,9 @@ CLI: Python 3.11+, package `agentic_sdlc`, command `agentic-sdlc`. Catalog is YA
 
 ## What is next (priority)
 
-1. **Promote `dev` → `release` → `main`** when you want GitHub’s default branch to match dogfood (optional).
-2. **M3:** [#14](https://github.com/grootynix/agentic-engineering-os/issues/14) hooks/pre-commit; [#18](https://github.com/grootynix/agentic-engineering-os/issues/18) `verify`; [#15](https://github.com/grootynix/agentic-engineering-os/issues/15) scanners. CLI stubs still exit `2`.
-3. **M4:** `secure`/`regulated` packs, `update`, mandatory-control doctor.
-4. **M5:** evals, token metrics.
-5. **Tag after promote:** `v0.2.0` (or `v0.1.1`) to run `aeos-release.yml`. `v0.1.0` predates that workflow.
+1. **M3:** [#14](https://github.com/grootynix/agentic-engineering-os/issues/14) hooks/pre-commit; [#18](https://github.com/grootynix/agentic-engineering-os/issues/18) `verify`; [#15](https://github.com/grootynix/agentic-engineering-os/issues/15) scanners. CLI stubs still exit `2`.
+2. **M4:** `secure`/`regulated` packs, `update`, mandatory-control doctor.
+3. **M5:** evals, token metrics.
 
 Do not treat rules or graph Actionables as enforcement.
 
@@ -59,7 +54,6 @@ Do not treat rules or graph Actionables as enforcement.
 ## How to run
 
 ```bash
-cd /Users/smac/Documents/workspace/proj/agenticpdlc
 git checkout dev
 git pull
 uv sync --extra dev

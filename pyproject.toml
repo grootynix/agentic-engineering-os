@@ -1,6 +1,6 @@
 [project]
 name = "agentic-sdlc"
-version = "0.1.0"
+version = "0.2.0"
 description = "Agentic Engineering OS — catalog-driven SDLC harness for local agent tooling."
 readme = "README.md"
 license = { file = "LICENSE" }

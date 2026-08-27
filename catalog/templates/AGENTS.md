@@ -1,6 +1,6 @@
 # Agent instructions
 
-This repository is bootstrapped by agentic-sdlc {{version}} (profile {{profile}}).
+This repository is bootstrapped by agentic-sdlc {{framework_version}} (profile {{profile}}).
 Primary language: {{language}}.
 
 Read `.agentic/manifest.yaml` and `.agentic/INDEX.md` before exploring.

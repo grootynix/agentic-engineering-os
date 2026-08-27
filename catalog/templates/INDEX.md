@@ -1,6 +1,6 @@
 # Agentic index
 
-- Framework: agentic-sdlc {{version}}
+- Framework: agentic-sdlc {{framework_version}}
 - Profile: {{profile}}
 - Language: {{language}}
 
