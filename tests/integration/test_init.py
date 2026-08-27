@@ -47,6 +47,14 @@ def test_init_tmp_path(tmp_path: Path) -> None:
     assert (tmp_path / ".cursor" / "skills" / "threat-model" / "SKILL.md").is_file()
     assert (tmp_path / ".cursor" / "agents" / "verifier.md").is_file()
     assert (tmp_path / ".claude" / "agents" / "architecture-reviewer.md").is_file()
+    assert (tmp_path / ".cursor" / "hooks.json").is_file()
+    assert (tmp_path / ".claude" / "settings.json").is_file()
+    assert (tmp_path / ".pre-commit-config.yaml").is_file()
+    hooks = (tmp_path / ".cursor" / "hooks.json").read_text(encoding="utf-8")
+    assert "agentic-sdlc hook" in hooks
+    assert "failClosed" in hooks
+    assert "scripts/" not in hooks
+    assert ".venv/bin" in hooks
     mdc = (tmp_path / ".cursor" / "rules" / "agentic-os.mdc").read_text(encoding="utf-8")
     assert "alwaysApply: true" in mdc
 

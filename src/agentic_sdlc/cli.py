@@ -1,4 +1,4 @@
-"""Typer CLI: init, doctor, graph, and remaining stubs."""
+"""Typer CLI: init, doctor, graph, hook, and remaining stubs."""
 
 from __future__ import annotations
 
@@ -25,10 +25,20 @@ from agentic_sdlc.core.models import (
     OverallStatus,
 )
 from agentic_sdlc.core.ownership import content_sha256, file_sha256, should_write
+from agentic_sdlc.core.policy import (
+    Decision,
+    PolicyAction,
+    claude_response,
+    cursor_response,
+    evaluate,
+    infer_host,
+    parse_hook_payload,
+)
 from agentic_sdlc.core.resolve import load_graph, resolve_desired_state
 from agentic_sdlc.errors import (
     AdapterConflictError,
     AgenticError,
+    HookPayloadError,
     NotGitRepoError,
     NotImplementedFeature,
     UsageError,
@@ -315,7 +325,7 @@ def graph_cmd(
 
 def _not_implemented(name: str) -> None:
     raise NotImplementedFeature(
-        f"{name} is not implemented (no hooks, verify, or update engine)."
+        f"{name} is not implemented (no verify or update engine)."
     )
 
 
@@ -340,13 +350,46 @@ def update() -> None:
 
 
 @app.command("hook")
-def hook() -> None:
-    """Not implemented (M1)."""
+def hook_cmd(
+    event: Annotated[str, typer.Argument(help="Event id (beforeShellExecution, precommit, …)")],
+    files: Annotated[
+        list[str] | None,
+        typer.Argument(help="Paths from pre-commit (optional)"),
+    ] = None,
+    host: Annotated[
+        str,
+        typer.Option("--host", help="cursor | claude | precommit | auto"),
+    ] = "auto",
+) -> None:
+    """Policy engine. Reads JSON on stdin; prints host JSON. Installed CLI only."""
+    raw = sys.stdin.read() if not sys.stdin.isatty() else ""
+    invalid = Decision(
+        action=PolicyAction.BLOCK,
+        policy_id="hook.invalid-payload",
+        what="Hook payload could not be parsed",
+        why="Security events fail closed on invalid input",
+        proceed="Fix the host hook JSON; do not bypass the installed CLI",
+    )
     try:
-        _not_implemented("hook")
+        request = parse_hook_payload(event, raw, files or [])
+        decision = evaluate(request)
+    except HookPayloadError:
+        decision = invalid
     except AgenticError as exc:
         _print_error(exc, as_json=False)
         raise typer.Exit(exc.exit_code) from exc
+
+    resolved_host = infer_host(event, host)
+    if resolved_host == "precommit":
+        if decision.action is PolicyAction.ALLOW:
+            raise typer.Exit(0)
+        typer.echo(decision.message())
+        raise typer.Exit(1 if decision.action is PolicyAction.BLOCK else 0)
+    if resolved_host == "claude":
+        typer.echo(json.dumps(claude_response(decision, event)))
+    else:
+        typer.echo(json.dumps(cursor_response(decision)))
+    raise typer.Exit(0)
 
 
 def main() -> None:

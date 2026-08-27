@@ -1,0 +1,89 @@
+# Policy data. Loaded by the installed CLI. Never eval'd.
+dangerous_commands:
+  - id: dangerous-command.rm-rf-root
+    action: block
+    regex: 'rm\s+-rf\s+(/|~|/home|/Users|\$HOME)(\s|$)'
+    what: Recursive delete of a home or root path
+    why: This can destroy the workstation or repo checkout
+    proceed: Delete specific paths under the project; do not rm -rf /
+  - id: dangerous-command.pipe-shell
+    action: block
+    regex: '(curl|wget).+\|\s*(sudo\s+)?(ba)?sh'
+    what: Download piped to a shell
+    why: Untrusted remote content must not execute
+    proceed: Save the file, review it, then run a pinned installer
+  - id: dangerous-command.force-push-default
+    action: ask
+    regex: 'git\s+push.*--force.*(main|master)'
+    what: Force-push to main or master
+    why: Default branches are protected
+    proceed: Push a feature branch; do not force-push protected branches
+  - id: dangerous-command.fork-bomb
+    action: block
+    regex: ':\(\)\s*\{\s*:\s*\|\s*:\s*&\s*;\s*\}'
+    what: Fork bomb
+    why: This can take down the host
+    proceed: Do not run this command
+  - id: dangerous-command.mkfs
+    action: block
+    regex: '(^|\s)mkfs(\.|\s)'
+    what: Filesystem format
+    why: Destructive to disks
+    proceed: Use project tooling only
+
+protected_paths:
+  - id: protected-path.git
+    prefix: ".git/"
+    what: Git internals
+    why: Tampering with .git is a persistence and integrity risk
+    proceed: Use git commands; change hooks via catalog + init, not by editing .git
+  - id: protected-path.manifest
+    prefix: ".agentic/manifest.yaml"
+    what: Generated manifest
+    why: Hash tracking must stay produced by init
+    proceed: Run agentic-sdlc init; do not hand-edit the manifest
+  - id: protected-path.cursor-hooks
+    prefix: ".cursor/hooks.json"
+    what: Cursor hook binding
+    why: Repo-local hook scripts are untrusted; this file must keep calling the installed CLI
+    proceed: Change catalog/templates/hooks.json and re-init
+  - id: protected-path.claude-settings
+    prefix: ".claude/settings.json"
+    what: Claude hook binding
+    why: Same policy engine must stay bound to agentic-sdlc hook
+    proceed: Change catalog/templates/claude-settings.json and re-init
+
+secret_patterns:
+  - id: secret-detection.pem
+    regex: '-----BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY-----'
+    what: Private key material
+    why: Secrets must not be written or committed
+    proceed: Use a secret manager or gitignored env; rotate if this leaked
+  - id: secret-detection.aws-access-key
+    regex: 'AKIA[0-9A-Z]{16}'
+    what: AWS access key id
+    why: Cloud credentials must not land in the repo
+    proceed: Use IAM roles or a secrets manager; rotate the key
+  - id: secret-detection.github-pat
+    regex: 'ghp_[A-Za-z0-9]{20,}'
+    what: GitHub personal access token
+    why: Tokens in files are stolen credentials
+    proceed: Use gh auth or a secret store; revoke this token
+
+test_globs:
+  - "tests/"
+  - "test/"
+  - "**/test_*.py"
+  - "**/*_test.py"
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.spec.ts"
+
+test_markers:
+  - "assert "
+  - "assert("
+  - "self.assert"
+  - "pytest."
+  - "it("
+  - "test("
+  - "expect("

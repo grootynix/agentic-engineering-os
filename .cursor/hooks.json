@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "type": "command",
+        "command": "PATH=\"$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:.venv/bin:$PATH\" agentic-sdlc hook beforeShellExecution",
+        "failClosed": true,
+        "timeout": 15
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "type": "command",
+        "command": "PATH=\"$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:.venv/bin:$PATH\" agentic-sdlc hook afterFileEdit",
+        "failClosed": true,
+        "timeout": 15
+      }
+    ]
+  }
+}

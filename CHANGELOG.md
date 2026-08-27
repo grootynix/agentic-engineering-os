@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `agentic-sdlc hook <event>` policy engine (ALLOW/WARN/ASK/BLOCK). Cursor `.cursor/hooks.json`, Claude `.claude/settings.json`, and `.pre-commit-config.yaml` call the **installed** CLI, not repo scripts. Catalog: `catalog/policies/hooks.yaml`.
 ## [0.2.1] - 2026-08-27
 
 ### Fixed

@@ -144,7 +144,7 @@ Canonical content stays in `catalog/`. Cursor `.mdc` frontmatter and Claude skil
 | ManifestStore | `.agentic/manifest.yaml`. |
 | Doctor | Desired vs actual: missing, stale version, hash drift, unknown stack. |
 | Catalog | Schema-validated data. Rule/skill/policy/graph change = tested change. |
-| Harness (M3) | Min context, permissions/hooks, verify loops, trace. LLM is inside the harness. |
+| Harness | `agentic-sdlc hook` policy engine + projected host/pre-commit bindings. Verify loops still M3 remainder. |
 | Graph walker | Load `catalog/graphs/*.yaml`; walk artifacts on disk (`agentic-sdlc graph`). |
 | PolicyEngine (M3) | Hook events → decision + explanation. |
 | VerifyOrchestrator (M3) | Discover native checks; adaptive; missing = skip/DEGRADED. |
@@ -184,7 +184,7 @@ Org-level overlay is not in M1.
 Projected into the consumer:
 
 - `.cursor/rules/*.mdc` — frontmatter: `description`, `globs`, `alwaysApply`. Almost all `alwaysApply: false`. At most one short always-on pointer.
-- `.cursor/hooks.json` (M3) — command hooks invoking `agentic-sdlc hook <id>` (`failClosed` for security events).
+- `.cursor/hooks.json` — command hooks invoking `agentic-sdlc hook <id>` (`failClosed` for security events).
 - `.cursor/skills/*/SKILL.md` — Cursor layout; default disable auto-invocation except skills that must trigger.
 - Subagent briefs when emitted (narrow: verifier, security-reviewer, architecture-reviewer).
 
@@ -195,7 +195,7 @@ Cursor prompt hooks are out of M1 and are not security boundaries (non-determini
 ## F. Claude Code-specific
 
 - `CLAUDE.md` — short; `@` pointers allowed. Do not duplicate `AGENTS.md`; prefer “see AGENTS.md” plus Claude-only commands.
-- `.claude/settings.json` (later) — permissions, hook registrations mapped from the same policy IDs.
+- `.claude/settings.json` — hook registrations mapped from the same policy IDs (`agentic-sdlc hook`).
 - `.claude/skills/`
 - `.claude/agents/` — verifier, security-reviewer, architecture-reviewer.
 

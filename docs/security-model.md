@@ -2,7 +2,7 @@
 
 Agentic Engineering OS is an agentic security product. LLM instructions are not a security boundary. The **harness** (installed CLI, later policy engine, hooks, CI) is.
 
-Hooks, `verify`, and the policy engine are **not in Milestone 1**. This document is the threat model and trust rules those features must satisfy.
+Hooks, heavy `verify`, and SAST/SCA scanners are still incomplete. This document is the threat model those features must satisfy. `agentic-sdlc hook` is the fast-path policy engine.
 
 ---
 

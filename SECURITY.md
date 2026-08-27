@@ -6,7 +6,8 @@ This project is an **agentic security product**. Treat CLI bugs, catalog injecti
 
 | Version | Supported |
 | --- | --- |
-| 0.1.x | Yes (current) |
+| 0.2.x | Yes (current) |
+| 0.1.x | Yes |
 
 We do not backport to unreleased milestone designs. Report against `main` / `release`.
 
@@ -27,7 +28,7 @@ You should hear back within **7 days**. If we confirm the issue, we will coordin
 
 ## Out of scope (for now)
 
-Milestone 1 does not implement hooks, `verify`, or a policy engine. Reports that the stubs exit `2` are not vulnerabilities. Reports that **catalog YAML is executed** or that `init` writes outside the target tree are.
+Milestone 1 did not implement hooks. `agentic-sdlc hook` now exists: reports that it **fails open** (invalid JSON allowed through) or that projected hooks call a **repo script** instead of the installed CLI are in scope. `verify` still exits `2` and is not a vulnerability.
 
 ## Maintainer notes
 
