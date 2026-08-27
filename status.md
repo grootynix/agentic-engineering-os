@@ -35,7 +35,8 @@ CLI: Python 3.11+, package `agentic_sdlc`, command `agentic-sdlc`. Catalog is YA
 
 ### On `dev` (unreleased)
 
-- `agentic-sdlc hook` policy engine; Cursor/Claude/pre-commit bindings call the installed CLI (`catalog/policies/hooks.yaml`).
+- `agentic-sdlc hook` policy engine; Cursor/Claude/pre-commit bindings.
+- `agentic-sdlc verify` orchestrator (`catalog/verify/checks.yaml`).
 
 ### GitHub still open
 
@@ -47,7 +48,7 @@ CLI: Python 3.11+, package `agentic_sdlc`, command `agentic-sdlc`. Catalog is YA
 
 ## What is next (priority)
 
-1. **M3 remainder:** [#18](https://github.com/grootynix/agentic-engineering-os/issues/18) `verify`; [#15](https://github.com/grootynix/agentic-engineering-os/issues/15) scanners. Those CLI stubs still exit `2`.
+1. **M3 remainder:** [#15](https://github.com/grootynix/agentic-engineering-os/issues/15) secret/SAST/SCA gates on `verify` for `secure`/`regulated`. `update` still exits `2`.
 2. **M4:** `secure`/`regulated` packs, `update`, mandatory-control doctor.
 3. **M5:** evals, token metrics.
 
@@ -61,7 +62,7 @@ Rules and graph Actionables are still guidance. `agentic-sdlc hook` / pre-commit
 git checkout dev
 git pull
 uv sync --extra dev
-uv run pytest
+uv run agentic-sdlc verify
 uv run agentic-sdlc doctor
 uv run agentic-sdlc graph
 ```

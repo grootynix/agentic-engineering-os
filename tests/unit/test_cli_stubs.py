@@ -14,12 +14,6 @@ def test_version() -> None:
     assert __version__ in result.stdout
 
 
-def test_verify_not_implemented() -> None:
-    result = runner.invoke(app, ["verify"])
-    assert result.exit_code == 2
-    assert "not implemented" in result.output.lower()
-
-
 def test_update_not_implemented() -> None:
     result = runner.invoke(app, ["update"])
     assert result.exit_code == 2

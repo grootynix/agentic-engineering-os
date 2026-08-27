@@ -28,7 +28,7 @@ You should hear back within **7 days**. If we confirm the issue, we will coordin
 
 ## Out of scope (for now)
 
-Milestone 1 did not implement hooks. `agentic-sdlc hook` now exists: reports that it **fails open** (invalid JSON allowed through) or that projected hooks call a **repo script** instead of the installed CLI are in scope. `verify` still exits `2` and is not a vulnerability.
+Milestone 1 did not implement hooks. `agentic-sdlc hook` now exists: reports that it **fails open** (invalid JSON allowed through) or that projected hooks call a **repo script** instead of the installed CLI are in scope. `verify` skipping a missing tool is intended; claiming a pass without running a check is not. `update` still exits `2`.
 
 ## Maintainer notes
 

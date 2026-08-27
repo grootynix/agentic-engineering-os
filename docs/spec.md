@@ -147,7 +147,7 @@ A cloned app repo after `init --profile secure` (or `regulated` where required):
 | --- | --- | --- |
 | **M1** | Bootstrap | CLI, init, detect, catalog stubs, doctor, tests, docs. **Shipped in 0.1.0.** |
 | **M2** | Guidance graph | **On `dev`:** glob rules, cut-release, guidance pack (review skills + specialized agents), `agentic-sdlc graph` walker. |
-| **M3** | Harness | **In progress:** policy engine + host/pre-commit bindings. Still to ship: `verify`, secret/SAST/SCA. |
+| **M3** | Harness | **In progress:** policy engine, pre-commit, `verify`. Still to ship: secret/SAST/SCA (#15). |
 | **M4** | Profiles and update | Full secure/regulated packs, `update`, mandatory-control doctor. |
 | **M5** | Evals | Agent evals, token instrumentation, maturity scoring. |
 

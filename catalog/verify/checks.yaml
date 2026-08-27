@@ -1,0 +1,49 @@
+checks:
+  - id: python.ruff-lint
+    stacks: [python]
+    kind: lint
+    need_any: [src, tests]
+    bin: ruff
+    argv: [ruff, check, src, tests]
+  - id: python.pytest
+    stacks: [python]
+    kind: unit
+    need_any: [tests]
+    bin: pytest
+    argv: [pytest, -q]
+  - id: python.mypy
+    stacks: [python]
+    kind: types
+    need_any: [mypy.ini, pyproject.toml]
+    require_config: mypy
+    bin: mypy
+    argv: [mypy, src]
+  - id: typescript.eslint
+    stacks: [typescript]
+    kind: lint
+    bin: eslint
+    argv: [npx, --no-install, eslint, .]
+  - id: typescript.tsc
+    stacks: [typescript]
+    kind: types
+    need_any: [tsconfig.json]
+    bin: tsc
+    argv: [npx, --no-install, tsc, --noEmit]
+  - id: typescript.test
+    stacks: [typescript]
+    kind: unit
+    need_any: [package.json]
+    require_config: npm-test
+    bin: npm
+    argv: [npm, test, --silent]
+  - id: go.test
+    stacks: [go]
+    kind: unit
+    need_any: [go.mod]
+    bin: go
+    argv: [go, test, ./...]
+  - id: terraform.fmt
+    stacks: [terraform]
+    kind: format
+    bin: terraform
+    argv: [terraform, fmt, -check, -recursive]

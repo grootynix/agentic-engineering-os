@@ -50,6 +50,7 @@ def test_init_tmp_path(tmp_path: Path) -> None:
     assert (tmp_path / ".cursor" / "hooks.json").is_file()
     assert (tmp_path / ".claude" / "settings.json").is_file()
     assert (tmp_path / ".pre-commit-config.yaml").is_file()
+    assert (tmp_path / ".agentic" / "templates" / "ci-verify.yml").is_file()
     hooks = (tmp_path / ".cursor" / "hooks.json").read_text(encoding="utf-8")
     assert "agentic-sdlc hook" in hooks
     assert "failClosed" in hooks

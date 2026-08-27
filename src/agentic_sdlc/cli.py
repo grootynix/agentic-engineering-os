@@ -1,4 +1,4 @@
-"""Typer CLI: init, doctor, graph, hook, and remaining stubs."""
+"""Typer CLI: init, doctor, graph, hook, verify, and update stub."""
 
 from __future__ import annotations
 
@@ -35,6 +35,7 @@ from agentic_sdlc.core.policy import (
     parse_hook_payload,
 )
 from agentic_sdlc.core.resolve import load_graph, resolve_desired_state
+from agentic_sdlc.core.verify import CheckStatus, run_verify
 from agentic_sdlc.errors import (
     AdapterConflictError,
     AgenticError,
@@ -324,19 +325,48 @@ def graph_cmd(
 
 
 def _not_implemented(name: str) -> None:
-    raise NotImplementedFeature(
-        f"{name} is not implemented (no verify or update engine)."
-    )
+    raise NotImplementedFeature(f"{name} is not implemented (no update engine).")
 
 
 @app.command()
-def verify() -> None:
-    """Not implemented (M1)."""
+def verify(
+    path: Annotated[
+        Path | None,
+        typer.Option("--path", help="Project root (default: cwd)"),
+    ] = None,
+    as_json: Annotated[bool, typer.Option("--json", help="Print JSON report")] = False,
+) -> None:
+    """Run discovered format, lint, type, and test commands. Missing tools skip."""
+    root = (path or Path.cwd()).resolve()
     try:
-        _not_implemented("verify")
+        report = run_verify(root)
     except AgenticError as exc:
-        _print_error(exc, as_json=False)
+        _print_error(exc, as_json=as_json)
         raise typer.Exit(exc.exit_code) from exc
+    if as_json:
+        typer.echo(_dump(report))
+    else:
+        typer.echo(f"verify {report.overall.value}")
+        typer.echo(f"  path: {report.path}")
+        typer.echo(f"  stack: {report.stack}")
+        if not report.checks:
+            typer.echo("  checks: none")
+        for item in report.checks:
+            typer.echo(f"    [{item.status.value}] {item.id}")
+            if item.status is not CheckStatus.PASS and item.detail:
+                first = item.detail.splitlines()[0][:120]
+                typer.echo(f"      {first}")
+        fails = [c for c in report.checks if c.status.value == "fail"]
+        skips = [c for c in report.checks if c.status.value == "skip" and c.action]
+        if not fails and not skips:
+            typer.echo("Actionables: none")
+        else:
+            typer.echo("Actionables:")
+            n = 1
+            for item in fails + skips:
+                typer.echo(f"  {n}. [{item.id}] {item.action}")
+                n += 1
+    raise typer.Exit(0 if report.ok else 1)
 
 
 @app.command()
