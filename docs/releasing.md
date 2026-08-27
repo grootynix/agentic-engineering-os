@@ -16,8 +16,8 @@ Set the same SemVer in `pyproject.toml` and `src/agentic_sdlc/__init__.py`. Move
 
 ## Signing and containers
 
-- Images: `ghcr.io/grootynix/agentic-engineering-os:<version>` and `sha-<gitsha>`.
-- Cosign uses GitHub OIDC (`id-token: write`). Verify with `cosign verify ghcr.io/grootynix/agentic-engineering-os:vX.Y.Z`.
+- Images: `ghcr.io/grootynix/agentic-engineering-os:<X.Y.Z>` and `sha-<gitsha>` (not `:latest`).
+- Cosign uses GitHub OIDC (`id-token: write`). Verify with `cosign verify ghcr.io/grootynix/agentic-engineering-os:X.Y.Z`.
 - Wheels on the GitHub Release include `SHA256SUMS`.
 - Local image: `docker build -t agentic-sdlc:dev .`
 

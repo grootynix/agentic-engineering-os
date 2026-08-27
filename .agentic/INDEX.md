@@ -1,6 +1,6 @@
 # Agentic index
 
-- Framework: agentic-sdlc 0.2.0
+- Framework: agentic-sdlc 0.2.1
 - Profile: standard
 - Language: python
 
