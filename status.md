@@ -6,7 +6,7 @@ Handoff for the next agent or human. Product contract: [docs/spec.md](docs/spec.
 **Default branch:** `main`  
 **Contribute on:** `dev`.  
 **Cut from:** `release`.  
-**Current release:** `v0.2.0`
+**Current release:** `v0.2.1`
 
 Work from `dev`. PRs target **`dev`**.
 

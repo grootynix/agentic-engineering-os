@@ -1,6 +1,6 @@
 # Agent instructions
 
-This repository is bootstrapped by agentic-sdlc 0.2.0 (profile standard).
+This repository is bootstrapped by agentic-sdlc 0.2.1 (profile standard).
 Primary language: python.
 
 Read `.agentic/manifest.yaml` and `.agentic/INDEX.md` before exploring.
