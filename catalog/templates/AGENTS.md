@@ -4,7 +4,8 @@ This repository is bootstrapped by agentic-sdlc {{version}} (profile {{profile}}
 Primary language: {{language}}.
 
 Read `.agentic/manifest.yaml` and `.agentic/INDEX.md` before exploring.
-Run `agentic-sdlc doctor` after clone. Treat doctor Actionables as the next steps.
+Run `agentic-sdlc graph` to see the next SDLC artifact (`sdlc/intent.md` first).
+Specialized agents: verifier, security-reviewer, architecture-reviewer.
 
 Keep this file short. Cursor rules under `.cursor/rules/` are glob-scoped.
 For tagging, SemVer, signing, and images, use the `cut-release` skill.

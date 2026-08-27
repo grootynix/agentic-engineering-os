@@ -12,14 +12,14 @@ stack:
   scores:
     python: 50
   harness:
-    cursor_dir: false
-    agents_md: false
-    claude_dir: false
-    claude_md: false
+    cursor_dir: true
+    agents_md: true
+    claude_dir: true
+    claude_md: true
 files:
 - path: AGENTS.md
   class: managed
-  sha256: 926aabb799ab412dcf48238ff451a004f8b228fdb4db008de6fc642ebf9e0b9e
+  sha256: a9c72ba8a273148a2e3861eabfc60a23c346b709cc1aebd9f386c2661832960e
   source: templates/AGENTS.md
 - path: CLAUDE.md
   class: managed
@@ -27,7 +27,7 @@ files:
   source: templates/CLAUDE.md
 - path: .agentic/INDEX.md
   class: generated
-  sha256: 7faded851783b9e4803f857a7977c3819bd075ddee69ca76aa0a2bb536e58a08
+  sha256: e78b7c832b0992e792d49639f672f6570891da88e05079bcdbf73acc8d56e7b1
   source: templates/INDEX.md
 - path: .agentic/config.yaml
   class: owned
@@ -63,11 +63,11 @@ files:
   source: rules/release.mdc
 - path: .cursor/skills/using-agentic-sdlc/SKILL.md
   class: managed
-  sha256: bc81a4b02ded27358acdcfe1c730144e285c906cda3bed6e572562296ff2b424
+  sha256: 9d458c4ed3b78a033eddf31e30e48ee246bdb2c9a792805f41487d5f1b41a968
   source: skills/using-agentic-sdlc/SKILL.md
 - path: .claude/skills/using-agentic-sdlc/SKILL.md
   class: managed
-  sha256: bc81a4b02ded27358acdcfe1c730144e285c906cda3bed6e572562296ff2b424
+  sha256: 9d458c4ed3b78a033eddf31e30e48ee246bdb2c9a792805f41487d5f1b41a968
   source: skills/using-agentic-sdlc/SKILL.md
 - path: .cursor/skills/cut-release/SKILL.md
   class: managed
@@ -89,4 +89,68 @@ files:
   class: managed
   sha256: bf0ef28a2abcfa708f36d1725c845e39f13c1389ff44e6bdca4070d032d9e214
   source: templates/aeos-release.yml
-created_at: '2026-08-27T13:10:21.803470Z'
+- path: .cursor/skills/threat-model/SKILL.md
+  class: managed
+  sha256: 8508a5ad8585483b008c64695f2ad82a4e6cbe6e46a1b4bd4300a287c4c424ea
+  source: skills/threat-model/SKILL.md
+- path: .claude/skills/threat-model/SKILL.md
+  class: managed
+  sha256: 8508a5ad8585483b008c64695f2ad82a4e6cbe6e46a1b4bd4300a287c4c424ea
+  source: skills/threat-model/SKILL.md
+- path: .cursor/skills/architecture-review/SKILL.md
+  class: managed
+  sha256: 8477d57ce800a2cd94c462a38edee7ff4c9dae6b8c4ad905afcb9493e0aa19d4
+  source: skills/architecture-review/SKILL.md
+- path: .claude/skills/architecture-review/SKILL.md
+  class: managed
+  sha256: 8477d57ce800a2cd94c462a38edee7ff4c9dae6b8c4ad905afcb9493e0aa19d4
+  source: skills/architecture-review/SKILL.md
+- path: .cursor/skills/secure-api/SKILL.md
+  class: managed
+  sha256: 5627073051d82be34ae34be95059d2b7c3bf63d7b57e7d546aeb11dcb8577301
+  source: skills/secure-api/SKILL.md
+- path: .claude/skills/secure-api/SKILL.md
+  class: managed
+  sha256: 5627073051d82be34ae34be95059d2b7c3bf63d7b57e7d546aeb11dcb8577301
+  source: skills/secure-api/SKILL.md
+- path: .cursor/skills/dependency-review/SKILL.md
+  class: managed
+  sha256: b35f622879155cbcd1a4dc85a352fda9812ec2a23b42c1be9763d0e90405ea2b
+  source: skills/dependency-review/SKILL.md
+- path: .claude/skills/dependency-review/SKILL.md
+  class: managed
+  sha256: b35f622879155cbcd1a4dc85a352fda9812ec2a23b42c1be9763d0e90405ea2b
+  source: skills/dependency-review/SKILL.md
+- path: .cursor/skills/privacy-review/SKILL.md
+  class: managed
+  sha256: 1e08e488583e98929f57ea05ec09879d9b919a1b912feb449fb0b05b3f2483aa
+  source: skills/privacy-review/SKILL.md
+- path: .claude/skills/privacy-review/SKILL.md
+  class: managed
+  sha256: 1e08e488583e98929f57ea05ec09879d9b919a1b912feb449fb0b05b3f2483aa
+  source: skills/privacy-review/SKILL.md
+- path: .cursor/agents/verifier.md
+  class: managed
+  sha256: e610973c382f7ea63005edad049ba2f6b054fc3bb3190d4cf7467914f362fa2a
+  source: agents/verifier.md
+- path: .claude/agents/verifier.md
+  class: managed
+  sha256: e610973c382f7ea63005edad049ba2f6b054fc3bb3190d4cf7467914f362fa2a
+  source: agents/verifier.md
+- path: .cursor/agents/security-reviewer.md
+  class: managed
+  sha256: c226328e3ce774702ecae143588a29d86d1321bbc685866d986ed66b87fd01ca
+  source: agents/security-reviewer.md
+- path: .claude/agents/security-reviewer.md
+  class: managed
+  sha256: c226328e3ce774702ecae143588a29d86d1321bbc685866d986ed66b87fd01ca
+  source: agents/security-reviewer.md
+- path: .cursor/agents/architecture-reviewer.md
+  class: managed
+  sha256: bcd1366fafa3e087e1839ce7821addd21e3d1f3399274f3f06f65efb9a7e00d4
+  source: agents/architecture-reviewer.md
+- path: .claude/agents/architecture-reviewer.md
+  class: managed
+  sha256: bcd1366fafa3e087e1839ce7821addd21e3d1f3399274f3f06f65efb9a7e00d4
+  source: agents/architecture-reviewer.md
+created_at: '2026-08-27T13:30:24.759560Z'

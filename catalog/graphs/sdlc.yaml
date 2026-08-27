@@ -2,18 +2,37 @@ name: sdlc
 nodes:
   - id: intent
     label: Intent
+    artifact: sdlc/intent.md
   - id: spec
     label: Spec
+    artifact: sdlc/spec.md
   - id: plan
     label: Plan
+    artifact: sdlc/plan.md
+    required_headings:
+      - objective
+      - existing architecture
+      - files to change
+      - files not to change
+      - implementation sequence
+      - risks
+      - security
+      - test strategy
+      - documentation
+      - rollback
+      - definition of done
   - id: implementation
     label: Implementation
+    artifact: sdlc/implementation.md
   - id: verification
     label: Verification
+    artifact: sdlc/verification.md
   - id: review
     label: Review
+    artifact: sdlc/review.md
   - id: pr
     label: Pull request
+    artifact: sdlc/pr.md
 edges:
   - from: intent
     to: spec

@@ -1,0 +1,66 @@
+id: guidance
+files:
+  - source: skills/threat-model/SKILL.md
+    dest: .cursor/skills/threat-model/SKILL.md
+    class: managed
+    adapter: cursor
+  - source: skills/threat-model/SKILL.md
+    dest: .claude/skills/threat-model/SKILL.md
+    class: managed
+    adapter: claude
+  - source: skills/architecture-review/SKILL.md
+    dest: .cursor/skills/architecture-review/SKILL.md
+    class: managed
+    adapter: cursor
+  - source: skills/architecture-review/SKILL.md
+    dest: .claude/skills/architecture-review/SKILL.md
+    class: managed
+    adapter: claude
+  - source: skills/secure-api/SKILL.md
+    dest: .cursor/skills/secure-api/SKILL.md
+    class: managed
+    adapter: cursor
+  - source: skills/secure-api/SKILL.md
+    dest: .claude/skills/secure-api/SKILL.md
+    class: managed
+    adapter: claude
+  - source: skills/dependency-review/SKILL.md
+    dest: .cursor/skills/dependency-review/SKILL.md
+    class: managed
+    adapter: cursor
+  - source: skills/dependency-review/SKILL.md
+    dest: .claude/skills/dependency-review/SKILL.md
+    class: managed
+    adapter: claude
+  - source: skills/privacy-review/SKILL.md
+    dest: .cursor/skills/privacy-review/SKILL.md
+    class: managed
+    adapter: cursor
+  - source: skills/privacy-review/SKILL.md
+    dest: .claude/skills/privacy-review/SKILL.md
+    class: managed
+    adapter: claude
+  - source: agents/verifier.md
+    dest: .cursor/agents/verifier.md
+    class: managed
+    adapter: cursor
+  - source: agents/verifier.md
+    dest: .claude/agents/verifier.md
+    class: managed
+    adapter: claude
+  - source: agents/security-reviewer.md
+    dest: .cursor/agents/security-reviewer.md
+    class: managed
+    adapter: cursor
+  - source: agents/security-reviewer.md
+    dest: .claude/agents/security-reviewer.md
+    class: managed
+    adapter: claude
+  - source: agents/architecture-reviewer.md
+    dest: .cursor/agents/architecture-reviewer.md
+    class: managed
+    adapter: cursor
+  - source: agents/architecture-reviewer.md
+    dest: .claude/agents/architecture-reviewer.md
+    class: managed
+    adapter: claude

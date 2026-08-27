@@ -1,4 +1,4 @@
-"""Typer CLI: init, doctor, and M1 stubs."""
+"""Typer CLI: init, doctor, graph, and remaining stubs."""
 
 from __future__ import annotations
 
@@ -14,6 +14,7 @@ from agentic_sdlc import __version__
 from agentic_sdlc.adapters import ADAPTERS
 from agentic_sdlc.core.detect import detect_stack
 from agentic_sdlc.core.doctor import run_doctor
+from agentic_sdlc.core.graph import walk_graph
 from agentic_sdlc.core.manifest import load_manifest, now_utc, write_manifest
 from agentic_sdlc.core.models import (
     DesiredState,
@@ -277,9 +278,44 @@ def doctor(
     raise typer.Exit(0 if report.ok else 1)
 
 
+@app.command("graph")
+def graph_cmd(
+    path: Annotated[
+        Path | None,
+        typer.Option("--path", help="Project root (default: cwd)"),
+    ] = None,
+    name: Annotated[str, typer.Option("--name", help="Catalog graph id")] = "sdlc",
+    as_json: Annotated[bool, typer.Option("--json", help="Print JSON report")] = False,
+) -> None:
+    """Walk the SDLC artifact graph and print next nodes plus actionables."""
+    root = (path or Path.cwd()).resolve()
+    try:
+        report = walk_graph(root, name=name)
+    except AgenticError as exc:
+        _print_error(exc, as_json=as_json)
+        raise typer.Exit(exc.exit_code) from exc
+    if as_json:
+        typer.echo(_dump(report))
+    else:
+        typer.echo(f"graph {report.name}")
+        typer.echo(f"  path: {report.path}")
+        typer.echo(f"  next: {', '.join(report.next_ids) if report.next_ids else '(none)'}")
+        for node in report.nodes:
+            art = f" {node.artifact}" if node.artifact else ""
+            typer.echo(f"    [{node.status.value}] {node.id}{art}")
+        ready = [n for n in report.nodes if n.status.value == "ready"]
+        if not ready:
+            typer.echo("Actionables: none")
+        else:
+            typer.echo("Actionables:")
+            for i, node in enumerate(ready, start=1):
+                typer.echo(f"  {i}. [{node.id}] {node.action}")
+    raise typer.Exit(0)
+
+
 def _not_implemented(name: str) -> None:
     raise NotImplementedFeature(
-        f"{name} is not implemented in milestone 1 (no hooks, verify, or update engine)."
+        f"{name} is not implemented (no hooks, verify, or update engine)."
     )
 
 

@@ -16,7 +16,7 @@ Cursor and Claude Code already provide **host harnesses** (context, tools, permi
 
 2. **Graph engineering (principle 12).** Work is a typed DAG. Nodes are steps; artifacts ride on edges; skills and specialized agents are node implementations. Packs and verification checks are the same pattern at other scales. Graphs are declarative data in `catalog/graphs/` (e.g. `sdlc.yaml`: intent → spec → plan → implementation → verification → review → PR). Do not encode the whole graph in `AGENTS.md`.
 
-3. **Sequencing.** Milestone 1 ships the harness **skeleton** (`init`, detection, catalog, `.agentic/manifest.yaml`, `doctor`) and **validates** graph YAML. A graph **walker** comes after init/doctor (M2+ for artifact chain; M3 for verify-as-graph). Evals (M5) score graph traces, not only final text.
+3. **Sequencing.** Milestone 1 shipped the harness **skeleton** and **validated** graph YAML. M2 walks the artifact chain (`agentic-sdlc graph`). M3 is verify-as-graph plus hooks. Evals (M5) score graph traces, not only final text.
 
 ## Consequences
 

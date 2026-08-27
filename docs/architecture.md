@@ -65,7 +65,7 @@ Harness: context | permissions | hooks | verify loop | stop
     -> Harness (trace, next node, fail/skip)
 ```
 
-Milestone 1 ships the harness skeleton (CLI, catalog, manifest, doctor) and **validated, not executed** graph YAML. The walker is after init/doctor.
+Milestone 1 shipped the harness skeleton and validated graph YAML. M2 adds `walk_graph` / `agentic-sdlc graph` (artifact presence and required headings).
 
 ---
 
@@ -145,7 +145,7 @@ Canonical content stays in `catalog/`. Cursor `.mdc` frontmatter and Claude skil
 | Doctor | Desired vs actual: missing, stale version, hash drift, unknown stack. |
 | Catalog | Schema-validated data. Rule/skill/policy/graph change = tested change. |
 | Harness (M3) | Min context, permissions/hooks, verify loops, trace. LLM is inside the harness. |
-| Graph walker (M2+) | Load `catalog/graphs/*.yaml`. M1: validate YAML only. |
+| Graph walker | Load `catalog/graphs/*.yaml`; walk artifacts on disk (`agentic-sdlc graph`). |
 | PolicyEngine (M3) | Hook events → decision + explanation. |
 | VerifyOrchestrator (M3) | Discover native checks; adaptive; missing = skip/DEGRADED. |
 
@@ -267,7 +267,7 @@ Do not optimize until correctness exists (M5 measures). Design so tokens can be 
 **Later milestones:**
 
 1. CLI, init, manifest, detection, templates, doctor; SDLC graph data stub.
-2. Cursor/Claude rules, skills, specialized agents as graph nodes; optional walker for artifact chain.
+2. Cursor/Claude rules, skills, specialized agents; artifact graph walker.
 3. Harness runtime: hooks, security controls, verify-as-graph.
 4. Full profiles, `update`, config validation.
 5. Evals on graph traces, token instrumentation, maturity scoring.

@@ -4,10 +4,10 @@ Handoff for the next agent or human. Product contract: [docs/spec.md](docs/spec.
 
 **Repo:** https://github.com/grootynix/agentic-engineering-os  
 **Default branch:** `main` (still the v0.1.0-era snapshot until you fast-forward it).  
-**Contribute on:** `dev` (includes merged PR [#19](https://github.com/grootynix/agentic-engineering-os/pull/19), closed).  
+**Contribute on:** `dev`.  
 **Cut from:** `release`.
 
-Work from `dev` (`47df34b` Merge pull request #19). Do not check out `feat/dogfood-release-harness`.
+Work from `dev`. PRs target **`dev`**.
 
 ---
 
@@ -27,37 +27,32 @@ CLI: Python 3.11+, package `agentic_sdlc`, command `agentic-sdlc`. Catalog is YA
 - OSS: CONTRIBUTING, CoC, SECURITY, CI, issue/PR templates, Dependabot, CODEOWNERS, MIT, topics, milestones M1–M5.
 - Spec and ADRs. Tracking [#8](https://github.com/grootynix/agentic-engineering-os/issues/8). M1 [#9](https://github.com/grootynix/agentic-engineering-os/issues/9) closed.
 
-### On `dev` (PR #19 merged)
+### On `dev` (PR #19)
 
-- Doctor/init **Actionables** (`action` field; human + JSON).
-- Repo **dogfooded**: `init --profile standard` then `doctor` → OK (Python).
-- PATH: `scripts/install.sh` / `uv tool install --editable .`.
-- Binary: `scripts/build_binary.py`; CI `binary` job (ubuntu, macos). `dist/` gitignored.
-- M2 start: glob-scoped rules (testing, engineering, docs, python, typescript, **release**).
-- Production cut: `cut-release` skill; `.agentic/templates/`; root `Dockerfile` + `.github/workflows/aeos-release.yml` (`v*` → wheel, SHA256SUMS, GHCR, cosign OIDC).
-- [docs/releasing.md](docs/releasing.md).
+- Doctor/init **Actionables**. Repo dogfooded. PATH + CI binaries. Glob rules, cut-release, GHCR/cosign templates.
+
+### M2 remainder (this slice)
+
+- Guidance pack on `standard` (inherited by `secure` / `regulated`): threat-model, architecture-review, secure-api, dependency-review, privacy-review skills; verifier, security-reviewer, architecture-reviewer agents.
+- `agentic-sdlc graph` walks `catalog/graphs/sdlc.yaml` against `sdlc/*.md` (complete / ready / blocked + Actionables). Not an LLM. Plan-drift still later.
 
 ### GitHub still open
 
 - **Projects board:** needs `project` token scope (or create the board in the UI).
 - Enable private vulnerability reporting in Settings → Security.
-- Dependabot PRs targeting `dev` (actions checkout/setup-uv, pip bumps) — review separately.
+- Dependabot PRs targeting `dev` — review separately.
 
 ---
 
 ## What is next (priority)
 
-1. **Promote `dev` → `release` → `main`** when you want GitHub’s default branch to match dogfood (optional; not done by #19).
-2. **M2 remainder** ([#8](https://github.com/grootynix/agentic-engineering-os/issues/8)):
-   - [#11](https://github.com/grootynix/agentic-engineering-os/issues/11) skills (threat-model, reviews, secure-api)
-   - [#12](https://github.com/grootynix/agentic-engineering-os/issues/12) specialized agents
-   - [#16](https://github.com/grootynix/agentic-engineering-os/issues/16) graph walker (`catalog/graphs/sdlc.yaml` is data only)
-3. **M3:** [#14](https://github.com/grootynix/agentic-engineering-os/issues/14) hooks/pre-commit; [#18](https://github.com/grootynix/agentic-engineering-os/issues/18) `verify`; [#15](https://github.com/grootynix/agentic-engineering-os/issues/15) scanners. CLI stubs still exit `2`.
-4. **M4:** `secure`/`regulated` packs, `update`, mandatory-control doctor.
-5. **M5:** evals, token metrics.
-6. **Tag after promote:** `v0.2.0` (or `v0.1.1`) to run `aeos-release.yml`. `v0.1.0` predates that workflow.
+1. **Promote `dev` → `release` → `main`** when you want GitHub’s default branch to match dogfood (optional).
+2. **M3:** [#14](https://github.com/grootynix/agentic-engineering-os/issues/14) hooks/pre-commit; [#18](https://github.com/grootynix/agentic-engineering-os/issues/18) `verify`; [#15](https://github.com/grootynix/agentic-engineering-os/issues/15) scanners. CLI stubs still exit `2`.
+3. **M4:** `secure`/`regulated` packs, `update`, mandatory-control doctor.
+4. **M5:** evals, token metrics.
+5. **Tag after promote:** `v0.2.0` (or `v0.1.1`) to run `aeos-release.yml`. `v0.1.0` predates that workflow.
 
-Do not start M3 until M2 agents/walker are sketched. Rules are not enforcement.
+Do not treat rules or graph Actionables as enforcement.
 
 ---
 
@@ -70,8 +65,7 @@ git pull
 uv sync --extra dev
 uv run pytest
 uv run agentic-sdlc doctor
-# PATH: sh scripts/install.sh
-# Binary: uv sync --extra binary && uv run python scripts/build_binary.py
+uv run agentic-sdlc graph
 ```
 
 PRs target **`dev`**. Do not force-push `main` / `dev` / `release`.
@@ -82,8 +76,8 @@ PRs target **`dev`**. Do not force-push `main` / `dev` / `release`.
 
 | Path | Role |
 | --- | --- |
-| `src/agentic_sdlc/` | CLI, detect, resolve, doctor, adapters |
-| `catalog/` | profiles, packs, rules, skills, graphs |
+| `src/agentic_sdlc/` | CLI, detect, resolve, doctor, graph walker, adapters |
+| `catalog/` | profiles, packs, rules, skills, agents, graphs |
 | `.agentic/` | dogfood manifest + consumer templates |
 | `.cursor/` `.claude/` | projected harness (managed) |
 | `docs/spec.md` | north star |

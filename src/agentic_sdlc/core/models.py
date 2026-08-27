@@ -159,6 +159,8 @@ class InitReport(BaseModel):
 class GraphNode(BaseModel):
     id: str
     label: str | None = None
+    artifact: str | None = None
+    required_headings: list[str] = Field(default_factory=list)
 
 
 class GraphEdge(BaseModel):
@@ -190,6 +192,28 @@ class Graph(BaseModel):
                     f"graph edge {edge.source}->{edge.target} references unknown node"
                 )
         return self
+
+
+class NodeWalkStatus(StrEnum):
+    COMPLETE = "complete"
+    READY = "ready"
+    BLOCKED = "blocked"
+
+
+class NodeWalk(BaseModel):
+    id: str
+    label: str | None = None
+    artifact: str | None = None
+    status: NodeWalkStatus
+    missing_headings: list[str] = Field(default_factory=list)
+    action: str | None = None
+
+
+class GraphWalkReport(BaseModel):
+    name: str
+    path: str
+    nodes: list[NodeWalk] = Field(default_factory=list)
+    next_ids: list[str] = Field(default_factory=list)
 
 
 def catalog_root() -> Path:
