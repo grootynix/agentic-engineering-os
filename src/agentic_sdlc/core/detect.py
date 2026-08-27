@@ -10,6 +10,14 @@ import yaml
 from agentic_sdlc.core.models import HarnessPresence, StackDef, StackReport, catalog_root
 
 
+def _skipped(path: Path, root: Path) -> bool:
+    try:
+        rel = path.resolve().relative_to(root.resolve()).as_posix()
+    except ValueError:
+        return True
+    return rel.startswith("tests/fixtures/") or rel == "tests/fixtures"
+
+
 def _load_stacks() -> list[StackDef]:
     stacks_dir = catalog_root() / "stacks"
     stacks: list[StackDef] = []
@@ -52,7 +60,11 @@ def detect_stack(root: Path) -> StackReport:
             if (root / name).is_file():
                 hits.append(name)
         for pattern in stack.globs:
-            matched = sorted(p.name for p in root.glob(pattern) if p.is_file())
+            matched = sorted(
+                p.name
+                for p in root.glob(pattern)
+                if p.is_file() and not _skipped(p, root)
+            )
             if matched:
                 hits.append(pattern)
         for dep in stack.package_json_deps:

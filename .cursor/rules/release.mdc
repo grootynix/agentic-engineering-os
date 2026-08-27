@@ -1,0 +1,15 @@
+---
+description: Production branching, SemVer, releases, signing, containers
+globs: "{.github/workflows/**,Dockerfile*,docker-compose*.yml,CHANGELOG.md,pyproject.toml,package.json}"
+alwaysApply: false
+---
+
+Branch: features target `dev`. Cut `release` from `dev` when shipping. Fast-forward `main` to the release tag. Do not force-push `main`, `dev`, or `release`.
+
+Version: SemVer. One source of truth (`pyproject.toml` / package.json) must match git tag `vMAJOR.MINOR.PATCH` and CHANGELOG.
+
+Release: changelog section, annotated tag, GitHub Release. Attach checksums (`SHA256SUMS`). Prefer provenance (SLSA / GitHub attestations) over unsigned blobs.
+
+Signing: sign container images and release artifacts with Sigstore/cosign using OIDC (`id-token: write`). Do not commit private keys. Verify before promote-to-prod.
+
+Containers: multi-stage, non-root user, pin base digests when you can, no secrets in layers. Scan images in CI. Tag `:version` and `:gitsha`; `:latest` is optional and never the only tag.

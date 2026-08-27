@@ -1,0 +1,7 @@
+---
+description: Engineering — modular, focused changes
+globs: "**/*.{py,ts,tsx,js,go}"
+alwaysApply: false
+---
+
+A module should have one primary reason to change. Domain code must not depend on infrastructure implementations. Avoid circular imports. Prefer existing extension points over editing stable cores. Keep related behavior together. Flag unusually large functions for review. Run the project's formatter, linter, and typecheck; do not re-implement them in this rule.

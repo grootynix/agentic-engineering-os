@@ -1,0 +1,7 @@
+---
+description: Testing — keep and extend regression tests
+globs: "**/{tests,test,spec}/**/*.{py,ts,tsx,js,go}"
+alwaysApply: false
+---
+
+Do not delete, skip, or weaken tests to make a suite pass. When fixing a bug, add or keep a regression that would have failed before the fix. Prefer the project's test runner over inventing a new one. Pair test changes with `agentic-sdlc doctor` / the repo's native test command, not a prompt that claims tests passed.

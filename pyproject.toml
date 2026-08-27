@@ -31,6 +31,9 @@ dev = [
   "pytest>=8.0",
   "ruff>=0.6",
 ]
+binary = [
+  "pyinstaller>=6.0",
+]
 
 [project.scripts]
 agentic-sdlc = "agentic_sdlc.cli:app"

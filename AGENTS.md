@@ -1,7 +1,7 @@
 # Agent instructions
 
-This repository is bootstrapped by agentic-sdlc {{version}} (profile {{profile}}).
-Primary language: {{language}}.
+This repository is bootstrapped by agentic-sdlc 0.1.0 (profile standard).
+Primary language: python.
 
 Read `.agentic/manifest.yaml` and `.agentic/INDEX.md` before exploring.
 Run `agentic-sdlc doctor` after clone. Treat doctor Actionables as the next steps.

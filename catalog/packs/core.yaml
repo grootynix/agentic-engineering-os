@@ -20,6 +20,30 @@ files:
     dest: .cursor/rules/agentic-os.mdc
     class: managed
     adapter: cursor
+  - source: rules/testing.mdc
+    dest: .cursor/rules/testing.mdc
+    class: managed
+    adapter: cursor
+  - source: rules/engineering.mdc
+    dest: .cursor/rules/engineering.mdc
+    class: managed
+    adapter: cursor
+  - source: rules/documentation.mdc
+    dest: .cursor/rules/documentation.mdc
+    class: managed
+    adapter: cursor
+  - source: rules/python.mdc
+    dest: .cursor/rules/python.mdc
+    class: managed
+    adapter: cursor
+  - source: rules/typescript.mdc
+    dest: .cursor/rules/typescript.mdc
+    class: managed
+    adapter: cursor
+  - source: rules/release.mdc
+    dest: .cursor/rules/release.mdc
+    class: managed
+    adapter: cursor
   - source: skills/using-agentic-sdlc/SKILL.md
     dest: .cursor/skills/using-agentic-sdlc/SKILL.md
     class: managed
@@ -28,3 +52,23 @@ files:
     dest: .claude/skills/using-agentic-sdlc/SKILL.md
     class: managed
     adapter: claude
+  - source: skills/cut-release/SKILL.md
+    dest: .cursor/skills/cut-release/SKILL.md
+    class: managed
+    adapter: cursor
+  - source: skills/cut-release/SKILL.md
+    dest: .claude/skills/cut-release/SKILL.md
+    class: managed
+    adapter: claude
+  - source: templates/Dockerfile
+    dest: .agentic/templates/Dockerfile
+    class: managed
+    adapter: shared
+  - source: templates/dockerignore
+    dest: .agentic/templates/dockerignore
+    class: managed
+    adapter: shared
+  - source: templates/aeos-release.yml
+    dest: .agentic/templates/aeos-release.yml
+    class: managed
+    adapter: shared

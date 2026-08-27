@@ -14,7 +14,7 @@ uv run agentic-sdlc init --path /path/to/your-app --profile standard
 uv run agentic-sdlc doctor --path /path/to/your-app
 ```
 
-**Status:** Milestone 1 — bootstrap CLI (`init`, `doctor`), stack detection, catalog, adapters. Not yet a full secure SDLC. See [Roadmap](#roadmap).
+**Status:** This repo is **dogfooded** (`agentic-sdlc init` on itself). `doctor` prints **Actionables** for each finding. Not yet a full secure SDLC. See [Roadmap](#roadmap).
 
 ---
 
@@ -47,8 +47,8 @@ Typical files:
 - `.agentic/manifest.yaml` — framework version, profile, stack, file hashes
 - `.agentic/INDEX.md` — pointer map so agents do not re-explore the repo
 - `.agentic/config.yaml` — yours (not overwritten on later updates)
-- Stub Cursor rule + skill under `.cursor/`
-- Stub Claude skill under `.claude/`
+- Cursor rules under `.cursor/rules/` (one short always-on pointer plus glob-scoped testing, engineering, docs, Python, TypeScript)
+- Claude skill under `.claude/`
 
 Profiles are YAML, not hardcoded CLI flags: `standard`, `secure`, `regulated`. Only the **core** pack is populated in Milestone 1. `secure` and `regulated` exist so the composition model is real; they do not yet add scanners or attestations.
 
@@ -63,6 +63,22 @@ git clone https://github.com/grootynix/agentic-engineering-os.git
 cd agentic-engineering-os
 uv sync --extra dev
 uv run agentic-sdlc --version
+```
+
+Install onto PATH (dogfood):
+
+```bash
+sh scripts/install.sh
+# or: uv tool install --editable .
+agentic-sdlc doctor
+```
+
+Standalone binaries are built in CI (`binary` job) as artifacts `agentic-sdlc-ubuntu-latest` / `agentic-sdlc-macos-latest`. Locally:
+
+```bash
+uv sync --extra binary
+uv run python scripts/build_binary.py
+./dist/agentic-sdlc --version
 ```
 
 From a checkout without uv:
@@ -136,7 +152,11 @@ uv run pytest
 uv run ruff check src tests
 ```
 
-PRs target **`dev`**. See [CONTRIBUTING.md](CONTRIBUTING.md) for the `dev` / `release` / `main` model, [docs/releasing.md](docs/releasing.md) for cuts, and [CHANGELOG.md](CHANGELOG.md) for shipped changes.
+This checkout is a consumer of the harness. After pull: `agentic-sdlc doctor` (or `uv run agentic-sdlc doctor`). Follow Actionables. Do not hand-edit managed files unless you intend HASH_DRIFT.
+
+PRs target **`dev`**. Branching, SemVer tags, checksums, GHCR, and cosign: [docs/releasing.md](docs/releasing.md). Local image: `docker build -t agentic-sdlc:dev .`
+
+See [CHANGELOG.md](CHANGELOG.md) for shipped changes.
 
 ---
 

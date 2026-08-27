@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Doctor and init **Actionables** (`action` on each finding; human + `--json`).
+- PATH install (`scripts/install.sh` / `uv tool install`) and CI one-file binaries (macOS/Linux) with catalog bundled.
+- This repository is dogfooded via `agentic-sdlc init`.
+- Glob-scoped catalog rules: testing, engineering, documentation, Python, TypeScript, **release/branching**.
+- `cut-release` skill plus `.agentic/templates` for Dockerfile, checksummed GitHub Releases, GHCR, and cosign.
 - Contribution files, CI, issue/PR templates, and `dev` / `release` branch model.
 - North-star product spec (`docs/spec.md`).
 

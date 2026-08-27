@@ -24,3 +24,31 @@ jobs:
         run: uv run ruff check src tests
       - name: Tests
         run: uv run pytest -q
+
+  binary:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: uv sync --extra dev --extra binary --frozen
+      - name: Build
+        run: uv run python scripts/build_binary.py
+      - name: Smoke
+        run: |
+          BIN=dist/agentic-sdlc
+          "$BIN" --version
+          mkdir -p /tmp/aeos-smoke && cp -R tests/fixtures/repos/python-uv/. /tmp/aeos-smoke/
+          "$BIN" init --path /tmp/aeos-smoke --force
+          "$BIN" doctor --path /tmp/aeos-smoke --json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: agentic-sdlc-${{ matrix.os }}
+          path: dist/agentic-sdlc
+          if-no-files-found: error

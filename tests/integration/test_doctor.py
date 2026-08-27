@@ -37,6 +37,8 @@ def test_mutate_managed_degraded(tmp_path: Path) -> None:
     assert payload["overall"] == "DEGRADED"
     codes = [i["code"] for i in payload["issues"]]
     assert "HASH_DRIFT" in codes
+    drift = next(i for i in payload["issues"] if i["code"] == "HASH_DRIFT")
+    assert drift["action"]
 
 
 def test_doctor_fail_without_manifest(tmp_path: Path) -> None:

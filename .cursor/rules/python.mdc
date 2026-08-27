@@ -1,0 +1,7 @@
+---
+description: Python conventions for this repo
+globs: "**/*.py"
+alwaysApply: false
+---
+
+Use type hints on public functions. Prefer `pathlib.Path` over raw path strings. Log failures with context; do not swallow exceptions. Raise typed errors at API boundaries. Run `ruff` and `pytest` when those tools exist in the project.

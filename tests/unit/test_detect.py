@@ -48,6 +48,16 @@ def test_detect_mixed_ambiguous() -> None:
     assert "typescript" in report.scores
 
 
+def test_detect_ignores_nested_fixture_lockfiles(tmp_path: Path) -> None:
+    (tmp_path / "pyproject.toml").write_text("[project]\nname='app'\n", encoding="utf-8")
+    nested = tmp_path / "tests" / "fixtures" / "repos" / "mixed"
+    nested.mkdir(parents=True)
+    (nested / "package.json").write_text('{"dependencies":{"react":"1"}}\n', encoding="utf-8")
+    report = detect_stack(tmp_path)
+    assert report.primary == "python"
+    assert report.ambiguous is False
+
+
 def test_detect_harness_presence(tmp_path: Path) -> None:
     (tmp_path / ".cursor").mkdir()
     (tmp_path / ".claude").mkdir()
