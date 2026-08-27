@@ -101,7 +101,7 @@ Exit codes: `0` success, `1` init/doctor failure, `2` usage or not implemented.
 
 **North star (not all shipped):** clone in Cursor → `init` → agents default to secure, modular, maintainable work, with pre-commit, threat modeling, security review, quality gates, and production practices **where they apply**, at low token cost.
 
-Details: [docs/architecture.md](docs/architecture.md), [docs/security-model.md](docs/security-model.md), [ADR: Python + catalog](docs/adr/0001-python-cli-and-catalog.md), [ADR: harness and graph](docs/adr/0002-harness-and-graph-engineering.md).
+Details: [docs/spec.md](docs/spec.md) (north-star product contract), [docs/architecture.md](docs/architecture.md), [docs/security-model.md](docs/security-model.md), [ADR: Python + catalog](docs/adr/0001-python-cli-and-catalog.md), [ADR: harness and graph](docs/adr/0002-harness-and-graph-engineering.md).
 
 ---
 

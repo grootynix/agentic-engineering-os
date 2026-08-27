@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Contribution files, CI, issue/PR templates, and `dev` / `release` branch model.
+- North-star product spec (`docs/spec.md`).
 
 ## [0.1.0] - 2026-08-27
 
