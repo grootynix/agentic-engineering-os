@@ -1,0 +1,39 @@
+name: Bug report
+description: Something in init, doctor, detection, or catalog projection is wrong
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Search existing issues first. For security issues use SECURITY.md, not this form.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: `uv run agentic-sdlc --version` or git commit
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: Commands, stack (language / package manager), `--json` output if useful
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: macOS 15, Ubuntu 24.04, …

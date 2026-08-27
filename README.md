@@ -1,5 +1,9 @@
 # Agentic Engineering OS
 
+[![CI](https://github.com/grootynix/agentic-engineering-os/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/grootynix/agentic-engineering-os/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
+
 A versioned, testable engineering operating system for AI coding agents.
 
 Clone a repo, run `agentic-sdlc init`, and the project gets a portable harness for [Cursor](https://cursor.com) and [Claude Code](https://docs.anthropic.com/en/docs/claude-code): short instructions, scoped rules and skills, a machine-readable manifest, and (later) hooks, verification, and review nodes. This is not a prompt pack. Guidance tells the agent how to work. Formatters, tests, hooks, and CI are what actually enforce it.
@@ -132,8 +136,12 @@ uv run pytest
 uv run ruff check src tests
 ```
 
+PRs target **`dev`**. See [CONTRIBUTING.md](CONTRIBUTING.md) for the `dev` / `release` / `main` model, [docs/releasing.md](docs/releasing.md) for cuts, and [CHANGELOG.md](CHANGELOG.md) for shipped changes.
+
 ---
 
 ## License
 
 [MIT](LICENSE)
+
+Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and [SECURITY.md](SECURITY.md) before contributing.

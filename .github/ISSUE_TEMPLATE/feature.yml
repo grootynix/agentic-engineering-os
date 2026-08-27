@@ -1,0 +1,31 @@
+name: Feature request
+description: A gap in the CLI, catalog, adapters, or docs
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is painful or missing today? (Milestone 1 is bootstrap-only; say if this is M2+.)
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Concrete behavior. Prefer catalog/pack changes over core rewrites when either would work.
+    validations:
+      required: true
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Layer
+      options:
+        - CLI / core engine
+        - Catalog (profiles, packs, templates)
+        - Cursor adapter
+        - Claude Code adapter
+        - Docs / CI
+        - Unsure
+    validations:
+      required: true
