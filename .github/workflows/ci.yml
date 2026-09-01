@@ -45,7 +45,7 @@ jobs:
           mkdir -p /tmp/aeos-smoke && cp -R tests/fixtures/repos/python-uv/. /tmp/aeos-smoke/
           "$BIN" init --path /tmp/aeos-smoke --force
           "$BIN" doctor --path /tmp/aeos-smoke --json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: agentic-sdlc-${{ matrix.os }}
           path: dist/agentic-sdlc
